@@ -1,6 +1,6 @@
 const CurvedArrow = (props) => {
     const style = {
-        'enable-background': 'new 0 0 302.817 302.817',
+        enableBackground: 'new 0 0 302.817 302.817',
     }
 
     return (
