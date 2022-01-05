@@ -1,0 +1,34 @@
+.forms {
+    & .field {
+        @apply my-24;
+    }
+
+    & label {
+        @apply block;
+        @apply mb-8;
+        @apply cursor-pointer;
+    }
+
+    & textarea {
+        @apply h-480;
+        @apply max-h-half;
+    }
+
+    & input,
+    & textarea {
+        @apply bg-blue-500;
+        @apply border-default;
+        @apply border-blue-600;
+        @apply p-16;
+        @apply text-blue-400;
+        @apply w-full;
+        @apply transition-default;
+        @apply duration-200;
+        @apply rounded-default;
+        @apply text-blue-100;
+
+        &:focus {
+            @apply bg-blue-600;
+        }
+    }
+}

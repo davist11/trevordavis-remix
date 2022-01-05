@@ -1,0 +1,126 @@
+.text {
+    @apply leading-relaxed;
+
+    &.-long {
+        @apply font-light;
+        @apply font-sans;
+        @apply tracking-wider;
+    }
+
+    & a {
+        @apply bg-blue-100;
+        @apply px-4;
+        @apply text-blue-400;
+        @apply whitespace-nowrap;
+        @apply transition-default;
+        @apply duration-200;
+
+        &:hover {
+            @apply bg-orange;
+        }
+    }
+
+    & strong,
+    & b {
+        @apply font-normal;
+        @apply text-blue-300;
+    }
+
+    & h2,
+    & h3,
+    & h4 {
+        @apply font-mono;
+        @apply font-hairline;
+        @apply text-teal;
+        @apply tracking-normal;
+    }
+
+    & h2 {
+        @apply text-xl;
+    }
+
+    & h3 {
+        @apply text-md;
+        @apply uppercase;
+    }
+
+    & p,
+    & ol,
+    & ul,
+    & pre,
+    & hr {
+        @apply my-32;
+    }
+
+    & > *:first-child {
+        @apply mt-0;
+    }
+
+    & > *:last-child {
+        @apply mb-0;
+    }
+
+    & hr {
+        @apply border-pink-400;
+    }
+
+    & pre {
+        @apply bg-blue-600;
+        @apply border-default;
+        @apply border-pink-300;
+        @apply p-32;
+        @apply font-mono;
+        @apply font-hairline;
+        @apply tracking-normal;
+        @apply overflow-x-auto;
+
+        scroll-behavior: smooth;
+    }
+
+    & ul {
+        @apply ml-32;
+        @apply space-y-16;
+
+        & li {
+            @apply relative;
+
+            &::before {
+                @apply absolute;
+                @apply text-lg;
+                @apply text-yellow;
+
+                content: '*';
+                left: -20px;
+                top: -2px;
+            }
+        }
+    }
+
+    & ol {
+        @apply ml-32;
+        @apply space-y-16;
+
+        counter-reset: ol;
+
+        & li {
+            @apply relative;
+
+            &::before {
+                @apply absolute;
+                @apply text-yellow;
+
+                content: counter(ol) '.';
+                counter-increment: ol;
+                left: -20px;
+            }
+        }
+    }
+
+    & blockquote {
+        @apply border-l-4;
+        @apply border-pink-300;
+        @apply mx-48;
+        @apply px-16;
+        @apply py-8;
+    }
+}
