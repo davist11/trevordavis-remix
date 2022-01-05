@@ -1,7 +1,10 @@
-const Instagram = (props) => {
+import { SvgType } from './SvgType'
+
+const Instagram = (props: SvgType) => {
     return (
         <svg
             {...props}
+            aria-hidden="true"
             x="0px"
             y="0px"
             width="18px"

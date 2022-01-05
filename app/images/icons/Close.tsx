@@ -1,11 +1,14 @@
-const Close = (props) => {
-    const style = {
+import { SvgType } from './SvgType'
+
+const Close = (props: SvgType) => {
+    const style: any = {
         enableBackground: 'new 0 0 252 252',
     }
 
     return (
         <svg
             {...props}
+            aria-hidden="true"
             x="0px"
             y="0px"
             viewBox="0 0 252 252"

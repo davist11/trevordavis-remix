@@ -1,7 +1,10 @@
-const Github = (props) => {
+import { SvgType } from './SvgType'
+
+const Github = (props: SvgType) => {
     return (
         <svg
             {...props}
+            aria-hidden="true"
             x="0px"
             y="0px"
             width="122px"

@@ -1,11 +1,14 @@
-const Menu = (props) => {
-    const style = {
+import { SvgType } from './SvgType'
+
+const Menu = (props: SvgType) => {
+    const style: any = {
         enableBackground: 'new 0 0 56 56',
     }
 
     return (
         <svg
             {...props}
+            aria-hidden="true"
             x="0px"
             y="0px"
             viewBox="0 0 56 56"

@@ -1,6 +1,14 @@
-const LogoIcon = (props) => {
+import { SvgType } from './SvgType'
+
+const LogoIcon = (props: SvgType) => {
     return (
-        <svg {...props} width="77" height="77" viewBox="0 0 77 77">
+        <svg
+            {...props}
+            aria-hidden="true"
+            width="77"
+            height="77"
+            viewBox="0 0 77 77"
+        >
             <path d="M76.616 38.308C76.616 59.465 59.465 76.616 38.308 76.616C17.152 76.616 0 59.465 0 38.308C0 17.151 17.152 0 38.308 0C59.464 0 76.616 17.151 76.616 38.308Z" />
             <path
                 d="M20.368 23.684H39.514V28.007H20.368V23.684ZM27.779 49.582H42.426V53.904H27.779V49.582Z"

@@ -12,8 +12,46 @@ import Github from './images/icons/Github'
 import Twitter from './images/icons/Twitter'
 import Instagram from './images/icons/Instagram'
 
+// TODO figure out RSS feed
+// <link rel="alternate" type="application/rss+xml" title="Trevor Davis" href="{{ url('feed.rss') }}">
+
 export function links() {
-    return [{ rel: 'stylesheet', href: styles }]
+    return [
+        {
+            rel: 'stylesheet',
+            href: styles,
+        },
+        {
+            rel: 'preconnect',
+            href: 'https://fonts.gstatic.com',
+        },
+        {
+            rel: 'stylesheet',
+            href: 'https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@100;400&Open+Sans:wght@300&display=swap',
+        },
+        {
+            rel: 'apple-touch-icon',
+            sizes: '180x180',
+            href: '/apple-touch-icon.png',
+        },
+        {
+            rel: 'icon',
+            type: 'image/png',
+            sizes: '32x32',
+            href: '/favicon-32x32.png',
+        },
+        {
+            rel: 'icon',
+            type: 'image/png',
+            sizes: '16x16',
+            href: '/favicon-16x16.png',
+        },
+        {
+            rel: 'mask-icon',
+            href: '/safari-pinned-tab.svg',
+            color: '#60a7c7',
+        },
+    ]
 }
 
 interface FooterNavItem {
@@ -50,6 +88,7 @@ export default function App() {
                     content="width=device-width,initial-scale=1"
                 />
                 <meta httpEquiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+                <meta name="theme-color" content="#ffffff" />
                 <Meta />
                 <Links />
             </head>

@@ -20,7 +20,6 @@ interface ErrorsType {
 
 export async function action({ request }: any) {
     const formData = await request.formData()
-
     const honeypot = formData.get('important')
     const name = formData.get('name')
     const email = formData.get('email')
@@ -48,7 +47,6 @@ export async function action({ request }: any) {
     }
 
     // TODO update sender
-    // Otherwise await the send email request
     const msg = {
         to: 'davist11@gmail.com',
         from: 'davist11@gmail.com',
