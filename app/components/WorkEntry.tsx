@@ -1,7 +1,6 @@
 interface WorkEntryProps {}
 
 const WorkEntry = ({ id, title, image, website, lazy }) => {
-    console.log(lazy)
     return (
         <div>
             {website ? (
