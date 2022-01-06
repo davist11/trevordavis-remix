@@ -5,6 +5,7 @@ import {
     Outlet,
     Scripts,
     ScrollRestoration,
+    useCatch,
 } from 'remix'
 import styles from './tailwind.css'
 import Header from './components/Header'
@@ -50,6 +51,12 @@ export function links() {
             rel: 'mask-icon',
             href: '/safari-pinned-tab.svg',
             color: '#60a7c7',
+        },
+        {
+            rel: 'alternate',
+            href: '/feed.rss',
+            type: 'application/rss+xml',
+            title: 'Trevor Davis',
         },
     ]
 }
@@ -130,6 +137,26 @@ export default function App() {
                 <ScrollRestoration />
                 <Scripts />
                 {process.env.NODE_ENV === 'development' && <LiveReload />}
+            </body>
+        </html>
+    )
+}
+
+// TODO abstract out layout to make this better
+export function CatchBoundary() {
+    const caught = useCatch()
+    return (
+        <html>
+            <head>
+                <title>Oops!</title>
+                <Meta />
+                <Links />
+            </head>
+            <body>
+                <h1>
+                    {caught.status} {caught.statusText}
+                </h1>
+                <Scripts />
             </body>
         </html>
     )
