@@ -2,17 +2,8 @@ import type { LoaderFunction } from 'remix'
 import { gqlClient } from '~/helpers/graphql-client'
 import { gql } from 'graphql-request'
 
-function escapeCdata(s: string) {
+const escapeCdata = (s: string) => {
     return s.replace(/\]\]>/g, ']]]]><![CDATA[>')
-}
-
-function escapeHtml(s: string) {
-    return s
-        .replace(/\&/g, '&amp;')
-        .replace(/</g, '&lt;')
-        .replace(/>/g, '&gt;')
-        .replace(/"/g, '&quot;')
-        .replace(/'/g, '&#039;')
 }
 
 export const loader: LoaderFunction = async ({ request }) => {
@@ -100,7 +91,7 @@ export const loader: LoaderFunction = async ({ request }) => {
                         <pubDate>${entry.postDate}</pubDate>
                         <author>Trevor Davis</author>
                         <guid>${url ?? ''}</guid>
-                        <description><![CDATA[${escapeHtml(body)}]]>
+                        <description><![CDATA[${escapeCdata(body)}]]>
                         </description>
                     </item>`.trim()
                 })
