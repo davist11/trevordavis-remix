@@ -46,13 +46,24 @@ export async function action({ request }: any) {
         return json(errors, { status: 422 })
     }
 
-    // TODO update sender
+    const textMessage = `
+        Name: ${name}\n
+        Email: ${email}\n\n
+        ${message}`
+
+    const htmlMessage = `
+        <p><strong>Name:</strong> ${name}</p>
+        <p><strong>Email:</strong> ${email}</p>
+
+        <p>${message}</p>`
+
     const msg = {
         to: 'davist11@gmail.com',
-        from: 'davist11@gmail.com',
-        subject: 'Contact Form Submission',
-        text: message,
-        html: message,
+        from: 'me@trevor-davis.com',
+        replyTo: email,
+        subject: 'New Contact Form Submission',
+        text: textMessage,
+        html: htmlMessage,
     }
 
     sendMail(msg)
