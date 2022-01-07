@@ -13,9 +13,6 @@ import Github from './images/icons/Github'
 import Twitter from './images/icons/Twitter'
 import Instagram from './images/icons/Instagram'
 
-// TODO figure out RSS feed
-// <link rel="alternate" type="application/rss+xml" title="Trevor Davis" href="{{ url('feed.rss') }}">
-
 export function links() {
     return [
         {
