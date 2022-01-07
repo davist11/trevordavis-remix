@@ -59,7 +59,7 @@ export async function action({ request }: any) {
 
     const msg = {
         to: 'davist11@gmail.com',
-        from: 'davist11@gmail.com',
+        from: 'me@trevor-davis.com',
         replyTo: email,
         subject: 'New Contact Form Submission',
         text: textMessage,
