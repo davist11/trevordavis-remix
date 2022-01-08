@@ -9,11 +9,13 @@ interface MessageType {
 }
 
 const sendRequest = (client: any, msg: MessageType) => {
+    console.log('send request')
     return new Promise((resolve: Function, reject: Function) => {
         client
             .send(msg)
             .then(([response]: any) => {
                 resolve(response)
+                console.log(response)
             })
             .catch((error: any) => reject(error))
     })
