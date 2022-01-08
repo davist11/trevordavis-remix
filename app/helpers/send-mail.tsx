@@ -1,8 +1,9 @@
-import client from '@sendgrid/mail'
+import client from '@sendinblue/client'
 
 interface MessageType {
-    to: string
-    from: string
+    to: any
+    from: any
+    replyTo: any
     subject: string
     text: string
     html: string
@@ -21,9 +22,31 @@ const sendRequest = (client: any, msg: MessageType) => {
     })
 }
 
-export const sendMail = async (msg: MessageType) => {
-    // Otherwise await the send email request
-    client.setApiKey(process.env.SENDGRID_KEY)
+export const sendMail = (msg: MessageType) => {
+    const apiInstance = new client.TransactionalEmailsApi()
 
-    sendRequest(client, msg)
+    apiInstance.setApiKey(
+        client.TransactionalEmailsApiApiKeys.apiKey,
+        process.env.SENDINBLUE_KEY
+    )
+
+    const sendSmtpEmail = new client.SendSmtpEmail()
+    sendSmtpEmail.subject = msg.subject
+    sendSmtpEmail.htmlContent = msg.html
+    sendSmtpEmail.textContent = msg.text
+    sendSmtpEmail.sender = msg.from
+    sendSmtpEmail.to = [msg.to]
+    sendSmtpEmail.replyTo = msg.replyTo
+
+    apiInstance.sendTransacEmail(sendSmtpEmail).then(
+        function (data) {
+            console.log(
+                'API called successfully. Returned data: ' +
+                    JSON.stringify(data)
+            )
+        },
+        function (error) {
+            console.error(error)
+        }
+    )
 }

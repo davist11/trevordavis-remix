@@ -52,21 +52,30 @@ export async function action({ request }: any) {
         ${message}`
 
     const htmlMessage = `
+        <html><body>
         <p><strong>Name:</strong> ${name}</p>
         <p><strong>Email:</strong> ${email}</p>
 
-        <p>${message}</p>`
+        <p>${message}</p>
+        </body></html>`
 
     const msg = {
-        to: 'davist11@gmail.com',
-        from: 'me@trevor-davis.com',
-        replyTo: email,
+        to: {
+            name: 'Trevor Davis',
+            email: 'davist11@gmail.com',
+        },
+        from: {
+            name: 'Trevor Davis',
+            email: 'davist11@gmail.com',
+        },
+        replyTo: {
+            name: name,
+            email: email,
+        },
         subject: 'New Contact Form Submission',
         text: textMessage,
         html: htmlMessage,
     }
-
-    console.log(msg)
 
     sendMail(msg)
 
