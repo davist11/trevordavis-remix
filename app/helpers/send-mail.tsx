@@ -25,6 +25,8 @@ const sendRequest = (client: any, msg: MessageType) => {
 export const sendMail = (msg: MessageType) => {
     const apiInstance = new client.TransactionalEmailsApi()
 
+    console.log(process.env.SENDINBLUE_KEY)
+
     apiInstance.setApiKey(
         client.TransactionalEmailsApiApiKeys.apiKey,
         process.env.SENDINBLUE_KEY
