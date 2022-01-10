@@ -1,4 +1,4 @@
-import client from '@sendgrid/mail'
+import mail from '@sendgrid/mail'
 
 interface MessageType {
     to: string
@@ -8,22 +8,22 @@ interface MessageType {
     html: string
 }
 
-const sendRequest = (client: any, msg: MessageType) => {
-    console.log('send request')
-    return new Promise((resolve: Function, reject: Function) => {
-        client
-            .send(msg)
-            .then(([response]: any) => {
-                resolve(response)
-                console.log(response)
-            })
-            .catch((error: any) => reject(error))
-    })
-}
-
 export const sendMail = async (msg: MessageType) => {
-    // Otherwise await the send email request
-    client.setApiKey(process.env.SENDGRID_KEY)
+    mail.setApiKey(process.env.SENDGRID_KEY)
 
-    sendRequest(client, msg)
+    try {
+        await mail.send(msg)
+
+        return {
+            statusCode: 200,
+            body: JSON.stringify({ message: 'Email sent.' }),
+        }
+    } catch (error) {
+        console.log(error.response.body.errors)
+
+        return {
+            statusCode: 500,
+            body: JSON.stringify({ message: 'Error sending email.' }),
+        }
+    }
 }
