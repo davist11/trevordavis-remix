@@ -58,16 +58,15 @@ export async function action({ request }: any) {
         <p>${message}</p>`
 
     const msg = {
-        to: 'davist11@gmail.com',
-        from: 'me@trevor-davis.com',
+        to: process.env.MAIL_TO,
+        from: process.env.MAIL_FROM,
         replyTo: email,
         subject: 'New Contact Form Submission',
         text: textMessage,
         html: htmlMessage,
     }
 
-    const results = await sendMail(msg)
-    console.log(results)
+    await sendMail(msg)
 
     return redirect('/contact/thanks')
 }

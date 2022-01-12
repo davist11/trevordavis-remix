@@ -10,6 +10,7 @@ interface MessageType {
 
 export const sendMail = async (msg: MessageType) => {
     mail.setApiKey(process.env.SENDGRID_KEY)
+
     try {
         await mail.send(msg)
         return {
