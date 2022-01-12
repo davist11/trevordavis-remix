@@ -66,8 +66,7 @@ export async function action({ request }: any) {
         html: htmlMessage,
     }
 
-    const results = sendMail(msg)
-
+    const results = await sendMail(msg)
     console.log(results)
 
     return redirect('/contact/thanks')
