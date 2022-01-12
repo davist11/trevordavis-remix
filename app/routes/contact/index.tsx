@@ -66,7 +66,9 @@ export async function action({ request }: any) {
         html: htmlMessage,
     }
 
-    sendMail(msg)
+    const results = sendMail(msg)
+
+    console.log(results)
 
     return redirect('/contact/thanks')
 }
