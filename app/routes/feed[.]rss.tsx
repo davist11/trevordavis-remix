@@ -1,5 +1,5 @@
 import type { LoaderFunction } from 'remix'
-import { gqlClient } from '~/helpers/graphql-client'
+import { gqlClient } from '~/helpers/graphql.server'
 import { gql } from 'graphql-request'
 
 const escapeCdata = (s: string) => {

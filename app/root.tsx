@@ -9,9 +9,7 @@ import {
 } from 'remix'
 import styles from './tailwind.css'
 import Header from './components/Header'
-import Github from './images/icons/Github'
-import Twitter from './images/icons/Twitter'
-import Instagram from './images/icons/Instagram'
+import Footer from './components/Footer'
 
 export function links() {
     return [
@@ -58,30 +56,6 @@ export function links() {
     ]
 }
 
-interface FooterNavItem {
-    label: string
-    url: string
-    icon: any //update to component
-}
-
-const footerNav: FooterNavItem[] = [
-    {
-        label: 'Instagram',
-        url: 'https://www.instagram.com/trevor_davis/',
-        icon: Instagram,
-    },
-    {
-        label: 'Twitter',
-        url: 'https://twitter.com/trevor_davis',
-        icon: Twitter,
-    },
-    {
-        label: 'GitHub',
-        url: 'https://github.com/davist11',
-        icon: Github,
-    },
-]
-
 export default function App() {
     return (
         <html lang="en" dir="ltr">
@@ -110,26 +84,7 @@ export default function App() {
                     <Outlet />
                 </main>
 
-                <footer
-                    id="footer"
-                    role="contentinfo"
-                    className="bg-blue-700 p-16"
-                >
-                    <dl className="flex items-center justify-center space-x-16 -mx-16">
-                        <dt className="sr-only">Connect with me on:</dt>
-                        {footerNav.map(({ label, url, icon: Icon }) => (
-                            <dd key={label}>
-                                <a
-                                    href={url}
-                                    className="duration-200 transition-default hover:text-pink-400"
-                                >
-                                    <span className="sr-only">{label}</span>
-                                    <Icon className="rect-icon-md" />
-                                </a>
-                            </dd>
-                        ))}
-                    </dl>
-                </footer>
+                <Footer />
 
                 <ScrollRestoration />
                 <Scripts />
@@ -153,6 +108,23 @@ export function CatchBoundary() {
                 <h1>
                     {caught.status} {caught.statusText}
                 </h1>
+                <Scripts />
+            </body>
+        </html>
+    )
+}
+
+export function ErrorBoundary() {
+    // const caught = useCatch()
+    return (
+        <html>
+            <head>
+                <title>Oops!</title>
+                <Meta />
+                <Links />
+            </head>
+            <body>
+                <h1>Whoops</h1>
                 <Scripts />
             </body>
         </html>

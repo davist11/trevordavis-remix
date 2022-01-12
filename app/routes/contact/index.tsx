@@ -1,5 +1,5 @@
 import { useActionData, Form, redirect, json, useTransition } from 'remix'
-import { sendMail } from '~/helpers/send-mail'
+import { sendMail } from '~/helpers/send-mail.server'
 import Loader from '~/components/Loader'
 import { getMeta } from '~/helpers/get-meta'
 import CurvedArrow from '~/images/icons/CurvedArrow'

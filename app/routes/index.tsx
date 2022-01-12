@@ -2,9 +2,9 @@ import { useLoaderData, json } from 'remix'
 import { gql } from 'graphql-request'
 import cx from 'classnames'
 import WorkEntry from '~/components/WorkEntry'
-import { gqlClient } from '~/helpers/graphql-client'
 import { getMeta } from '~/helpers/get-meta'
 import CurvedArrow from '~/images/icons/CurvedArrow'
+import { gqlClient } from '~/helpers/graphql.server'
 
 export const meta = () => {
     return getMeta({
@@ -61,6 +61,7 @@ interface WorkEntryType {
 
 export default function Index() {
     const data = useLoaderData()
+    // console.log(process.env.GRAPHQL_ENDPOINT)
     const homepageEntry = data.homepageEntry[0]
     const workEntries: WorkEntryType[] = data.workEntries
 

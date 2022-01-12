@@ -1,7 +1,7 @@
 import { useLoaderData, json, Link } from 'remix'
 import { gql } from 'graphql-request'
 import Pagination from '~/components/Pagination'
-import { gqlClient } from '~/helpers/graphql-client'
+import { gqlClient } from '~/helpers/graphql.server'
 import { getMeta } from '~/helpers/get-meta'
 
 export const meta = () => {

@@ -1,7 +1,7 @@
 import { useLoaderData, json } from 'remix'
 import type { LoaderFunction } from 'remix'
 import { gql } from 'graphql-request'
-import { gqlClient } from '~/helpers/graphql-client'
+import { gqlClient } from '~/helpers/graphql.server'
 import cx from 'classnames'
 import { getMeta } from '~/helpers/get-meta'
 
