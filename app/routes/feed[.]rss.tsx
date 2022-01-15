@@ -14,7 +14,7 @@ export const loader: LoaderFunction = async ({ request }) => {
                 title
                 sectionHandle
                 postDate @formatDateTime(format: "rss")
-                url
+                uri
                 ... on work_work_Entry {
                     id
                     website
@@ -65,7 +65,7 @@ export const loader: LoaderFunction = async ({ request }) => {
                         entry.sectionHandle === 'work' ||
                         entry.typeHandle === 'externalArticle'
                             ? entry.website
-                            : entry.url
+                            : `${domain}/${entry.uri}`
 
                     let body = entry?.body
 
