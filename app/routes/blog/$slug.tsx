@@ -17,8 +17,8 @@ export const meta = ({ data }: any) => {
     })
 }
 
-export const loader: LoaderFunction = async ({ params }) => {
-    const { entries } = await gqlClient.request(gql`
+export const loader: LoaderFunction = async ({ request, params }) => {
+    const { entries } = await gqlClient(request).request(gql`
         {
             entries(section: "blog", limit: 1, slug: "${params.slug}") {
                 id

@@ -7,7 +7,7 @@ const escapeCdata = (s: string) => {
 }
 
 export const loader: LoaderFunction = async ({ request }) => {
-    const { entries } = await gqlClient.request(gql`
+    const { entries } = await gqlClient().request(gql`
         {
             entries(section: ["blog", "work"], orderBy: "postDate DESC") {
                 id

@@ -13,7 +13,7 @@ export const meta = () => {
 }
 
 export const loader: LoaderFunction = async () => {
-    const { entries } = await gqlClient.request(gql`
+    const { entries } = await gqlClient().request(gql`
         {
             entries(section: "about", limit: 1) {
                 id

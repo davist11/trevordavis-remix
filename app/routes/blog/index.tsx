@@ -18,7 +18,7 @@ export let loader = async ({ request }: any) => {
     )
     const offset: number = (currentPage - 1) * 10
 
-    const { entries, total } = await gqlClient.request(gql`
+    const { entries, total } = await gqlClient().request(gql`
         {
             entries(section: "blog", limit: 10, offset: ${offset}) {
                 title

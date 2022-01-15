@@ -43,8 +43,10 @@ const GetHomepageQuery = gql`
 `
 
 export let loader = async () => {
-    const { entries: workEntries } = await gqlClient.request(GetWorkQuery)
-    const { entries: homepageEntry } = await gqlClient.request(GetHomepageQuery)
+    const { entries: workEntries } = await gqlClient().request(GetWorkQuery)
+    const { entries: homepageEntry } = await gqlClient().request(
+        GetHomepageQuery
+    )
 
     return json({
         homepageEntry,
