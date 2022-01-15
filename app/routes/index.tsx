@@ -61,7 +61,6 @@ interface WorkEntryType {
 
 export default function Index() {
     const data = useLoaderData()
-    // console.log(process.env.GRAPHQL_ENDPOINT)
     const homepageEntry = data.homepageEntry[0]
     const workEntries: WorkEntryType[] = data.workEntries
 

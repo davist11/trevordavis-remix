@@ -1,8 +1,18 @@
-import { useActionData, Form, redirect, json, useTransition } from 'remix'
+import {
+    useActionData,
+    Form,
+    redirect,
+    json,
+    useTransition,
+    useLoaderData,
+} from 'remix'
 import { sendMail } from '~/helpers/send-mail.server'
 import Loader from '~/components/Loader'
 import { getMeta } from '~/helpers/get-meta'
 import CurvedArrow from '~/images/icons/CurvedArrow'
+import ReCAPTCHA from 'react-google-recaptcha'
+import { useState } from 'react'
+import type { FormEvent } from 'react'
 
 export const meta = () => {
     return getMeta({
@@ -16,6 +26,10 @@ interface ErrorsType {
     name?: string
     email?: string
     message?: string
+}
+
+export const loader = () => {
+    return json({ siteKey: process.env.RECAPTCHA_SITE_KEY })
 }
 
 export async function action({ request }: any) {
@@ -72,11 +86,24 @@ export async function action({ request }: any) {
 }
 
 export default function ContactIndex() {
+    const [isCaptchaValid, setIsCaptchaValid] = useState(false)
+    const [isSubmitted, setIsSubmitted] = useState(false)
     const errors = useActionData()
     const transition = useTransition()
+    const data = useLoaderData()
     const curvedArrowIcon = (
         <CurvedArrow className="rect-icon absolute transform rotate-100 -left-8" />
     )
+
+    const handleChange = () => {
+        setIsCaptchaValid(true)
+    }
+
+    const handleSubmit = (e: FormEvent) => {
+        setIsSubmitted(true)
+
+        if (!isCaptchaValid) e.preventDefault()
+    }
 
     return (
         <div className="max-w-768 mx-auto px-20">
@@ -86,7 +113,7 @@ export default function ContactIndex() {
                 <div className="absolute left-0 bottom-0 h-2 w-120 bg-blue-600"></div>
             </div>
 
-            <Form method="post">
+            <Form method="post" onSubmit={handleSubmit}>
                 {errors?.honeypot ? <div>{errors.honeypot}</div> : null}
 
                 <ol className="forms">
@@ -152,14 +179,20 @@ export default function ContactIndex() {
                             ) : null}
                         </div>
                     </li>
-                    {/* TODO add recaptcha */}
-                    {/* <li className="field">
+
+                    <li className="field">
                         <div className="ml-16">
-                            {{ craft.recaptcha.render({
-                                theme: 'dark',
-                            }) }}
+                            <ReCAPTCHA
+                                sitekey={data.siteKey}
+                                theme="dark"
+                                onChange={handleChange}
+                            />
+                            {isSubmitted && !isCaptchaValid ? (
+                                <div>This captcha is required</div>
+                            ) : null}
                         </div>
-                    </li> */}
+                    </li>
+
                     <li className="flex justify-end">
                         {transition.state === 'submitting' ? (
                             <div className="relative w-64 mr-32">

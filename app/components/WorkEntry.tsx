@@ -1,8 +1,18 @@
-interface WorkEntryProps {}
-
-const WorkEntry = ({ id, title, image, website, lazy }) => {
+const WorkEntry = ({
+    id,
+    title,
+    image,
+    website,
+    lazy,
+}: {
+    id: Number
+    title: string
+    image: string
+    website?: string
+    lazy: boolean
+}) => {
     return (
-        <div>
+        <>
             {website ? (
                 <a
                     href={website}
@@ -26,7 +36,7 @@ const WorkEntry = ({ id, title, image, website, lazy }) => {
                         <img
                             src={image}
                             alt=""
-                            loading={lazy ? 'lazy' : null}
+                            loading={lazy ? 'lazy' : 'eager'}
                         />
                     </div>
                 </a>
@@ -37,12 +47,12 @@ const WorkEntry = ({ id, title, image, website, lazy }) => {
                         <img
                             src={image}
                             alt=""
-                            loading={lazy ? 'lazy' : null}
+                            loading={lazy ? 'lazy' : 'eager'}
                         />
                     </div>
                 </div>
             )}
-        </div>
+        </>
     )
 }
 
