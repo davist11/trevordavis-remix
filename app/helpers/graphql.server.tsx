@@ -1,15 +1,20 @@
 import { GraphQLClient } from 'graphql-request'
 
+// Pass through allowed query params to the requst
 const getQueryParams = (request: Request): string => {
     const url = new URL(request.url)
-    const craftPreview = url.searchParams.get('x-craft-preview')
-    const token = url.searchParams.get('token')
+    const allowedKeys = ['x-craft-preview', 'x-craft-live-preview', 'token']
+    const filteredParams = Object.entries(
+        Object.fromEntries(url.searchParams)
+    ).filter(([key]) => allowedKeys.includes(key))
 
-    if (!craftPreview || !token) {
+    if (!filteredParams.length) {
         return ''
     }
 
-    return `?x-craft-preview=${craftPreview}&token=${token}`
+    const queryString = filteredParams.map((val) => val.join('=')).join('&')
+
+    return `?${queryString}`
 }
 
 export const gqlClient = (request = null) => {
