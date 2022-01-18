@@ -72,7 +72,8 @@ export default function BlogIndex() {
                         {website ? (
                             <a href={website}>{title}</a>
                         ) : (
-                            <Link to={`/blog/${slug}`}>{title}</Link>
+                            <a href={`/blog/${slug}`}>{title}</a>
+                            // <Link to={`/blog/${slug}`}>{title}</Link>
                         )}
                     </h2>
                     <div className="text -long">
