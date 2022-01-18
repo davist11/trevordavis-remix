@@ -24,6 +24,10 @@ export function links() {
             href: 'https://fonts.gstatic.com',
         },
         {
+            rel: 'preconnect',
+            href: 'https://assets.trevor-davis.com',
+        },
+        {
             rel: 'stylesheet',
             href: 'https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@100;400&Open+Sans:wght@300&display=swap',
         },
