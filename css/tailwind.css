@@ -110,18 +110,28 @@
         @apply font-mono;
         @apply font-hairline;
         @apply text-teal;
-        @apply tracking-normal;
+        @apply leading-snug;
     }
 
     .text h2 {
-        @apply text-xl;
+        @apply text-lg;
     }
+
+    @media screen(md) {
+        .text h2 {
+            @apply text-xl;
+        }
+    }
+
 
     .text h3 {
         @apply text-md;
         @apply uppercase;
     }
 
+    .text h2,
+    .text h3,
+    .text h4,
     .text p,
     .text ol,
     .text ul,

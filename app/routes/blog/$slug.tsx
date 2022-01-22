@@ -1,4 +1,4 @@
-import { useLoaderData, useParams, json, Link } from 'remix'
+import { useLoaderData, json } from 'remix'
 import type { LoaderFunction } from 'remix'
 import { gql } from 'graphql-request'
 import { gqlClient } from '~/helpers/graphql.server'
@@ -51,7 +51,9 @@ export default function BlogEntry() {
                     {entry.displayDate}
                 </time>
 
-                <h1 className="text-jb text-teal">{entry.title}</h1>
+                <h1 className="text-xl md:text-jb leading-snug text-teal">
+                    {entry.title}
+                </h1>
 
                 <div className="absolute left-0 bottom-0 h-2 w-120 bg-blue-600"></div>
             </div>
