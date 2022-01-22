@@ -76,7 +76,12 @@ export default function App() {
 
                 <Header />
 
-                <main id="content" role="main" tabIndex={-1} className="py-64">
+                <main
+                    id="content"
+                    role="main"
+                    tabIndex={-1}
+                    className="py-64 outline-none"
+                >
                     <Outlet />
                 </main>
 
@@ -107,7 +112,12 @@ export function CatchBoundary() {
 
                 <Header />
 
-                <main id="content" role="main" tabIndex={-1} className="py-64">
+                <main
+                    id="content"
+                    role="main"
+                    tabIndex={-1}
+                    className="py-64 outline-none"
+                >
                     <CatchError errorText={caught.statusText} />
                 </main>
 
@@ -138,7 +148,12 @@ export function ErrorBoundary({ error }) {
 
                 <Header />
 
-                <main id="content" role="main" tabIndex={-1} className="py-64">
+                <main
+                    id="content"
+                    role="main"
+                    tabIndex={-1}
+                    className="py-64 outline-none"
+                >
                     <CatchError errorText={errorText} />
                 </main>
 
