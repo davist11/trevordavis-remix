@@ -17,6 +17,7 @@
         "@remix-run/react": "^1.1.1",
         "@sendgrid/mail": "^7.6.0",
         "@types/react-google-recaptcha": "^2.1.2",
+        "akismet-api": "^5.2.1",
         "classnames": "^2.3.1",
         "dotenv": "^10.0.0",
         "graphql": "^16.2.0",

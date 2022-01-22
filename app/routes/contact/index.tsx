@@ -1,18 +1,9 @@
-import {
-    useActionData,
-    Form,
-    redirect,
-    json,
-    useTransition,
-    useLoaderData,
-} from 'remix'
+import { useActionData, Form, redirect, json, useTransition } from 'remix'
 import { sendMail } from '~/helpers/send-mail.server'
 import Loader from '~/components/Loader'
 import { getMeta } from '~/helpers/get-meta'
 import CurvedArrow from '~/images/icons/CurvedArrow'
-import ReCAPTCHA from 'react-google-recaptcha'
-import { useState } from 'react'
-import type { FormEvent } from 'react'
+import { AkismetClient } from 'akismet-api'
 
 export const meta = () => {
     return getMeta({
@@ -26,6 +17,7 @@ interface ErrorsType {
     name?: string
     email?: string
     message?: string
+    general?: string
 }
 
 export const loader = () => {
@@ -54,6 +46,37 @@ export async function action({ request }: any) {
 
     if (!message) {
         errors.message = 'Message is required'
+    }
+
+    const key = process.env.AKISMET_KEY
+    const blog = 'trevor-davis.com'
+    const client = new AkismetClient({ key, blog })
+    const ip = request.headers.get('x-forwarded-for')
+
+    const comment = {
+        ip: ip,
+        content: message,
+        email: email,
+        name: name,
+    }
+
+    try {
+        const isValid = await client.verifyKey()
+
+        if (!isValid) {
+            errors.general =
+                'Sorry, there was an error on our end, try again soon.'
+        } else {
+            const isSpam = await client.checkSpam(comment)
+
+            if (isSpam) {
+                errors.general =
+                    'Sorry, there was an error on our end, try again soon.'
+            }
+        }
+    } catch (err: any) {
+        console.error('Could not reach Akismet:', err.message)
+        errors.general = 'Sorry, there was an error on our end, try again soon.'
     }
 
     if (Object.keys(errors).length) {
@@ -86,24 +109,11 @@ export async function action({ request }: any) {
 }
 
 export default function ContactIndex() {
-    const [isCaptchaValid, setIsCaptchaValid] = useState(false)
-    const [isSubmitted, setIsSubmitted] = useState(false)
     const errors = useActionData()
     const transition = useTransition()
-    const data = useLoaderData()
     const curvedArrowIcon = (
         <CurvedArrow className="rect-icon absolute transform rotate-100 -left-8" />
     )
-
-    const handleChange = () => {
-        setIsCaptchaValid(true)
-    }
-
-    const handleSubmit = (e: FormEvent) => {
-        setIsSubmitted(true)
-
-        if (!isCaptchaValid) e.preventDefault()
-    }
 
     return (
         <div className="max-w-768 mx-auto px-20">
@@ -113,8 +123,9 @@ export default function ContactIndex() {
                 <div className="absolute left-0 bottom-0 h-2 w-120 bg-blue-600"></div>
             </div>
 
-            <Form method="post" onSubmit={handleSubmit}>
+            <Form method="post">
                 {errors?.honeypot ? <div>{errors.honeypot}</div> : null}
+                {errors?.general ? <div>{errors.general}</div> : null}
 
                 <ol className="forms">
                     <li className="sr-only">
@@ -176,19 +187,6 @@ export default function ContactIndex() {
                             ></textarea>
                             {errors?.message ? (
                                 <div>{errors.message}</div>
-                            ) : null}
-                        </div>
-                    </li>
-
-                    <li className="field">
-                        <div className="ml-16">
-                            <ReCAPTCHA
-                                sitekey={data.siteKey}
-                                theme="dark"
-                                onChange={handleChange}
-                            />
-                            {isSubmitted && !isCaptchaValid ? (
-                                <div>This captcha is required</div>
                             ) : null}
                         </div>
                     </li>
