@@ -89,7 +89,6 @@
         @apply bg-blue-100;
         @apply px-4;
         @apply text-blue-400;
-        @apply whitespace-nowrap;
         @apply transition-default;
         @apply duration-200;
     }
