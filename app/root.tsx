@@ -6,10 +6,12 @@ import {
     Scripts,
     ScrollRestoration,
     useCatch,
+    useTransition,
 } from 'remix'
 import styles from './tailwind.css'
 import Header from './components/Header'
 import Footer from './components/Footer'
+import Loader from '~/components/Loader'
 import { MetaBase, SkipLink } from './components/Layout'
 import CatchError from './components/CatchError'
 
@@ -64,6 +66,8 @@ export function links() {
 
 // App layout
 export default function App() {
+    const transition = useTransition()
+
     return (
         <html lang="en" dir="ltr">
             <head>
@@ -80,9 +84,18 @@ export default function App() {
                     id="content"
                     role="main"
                     tabIndex={-1}
-                    className="py-64 outline-none"
+                    className="py-64 outline-none relative"
                 >
                     <Outlet />
+
+                    {transition.state === 'loading' ? (
+                        <div className="inset-0 absolute">
+                            <div className="fixed w-64 top-1/2 left-1/2 -translate-y-1/2 -translate-x-1/2 z-2">
+                                <Loader />
+                            </div>
+                            <div className="inset-0 absolute bg-blue-500 opacity-50 z-1"></div>
+                        </div>
+                    ) : null}
                 </main>
 
                 <Footer />
