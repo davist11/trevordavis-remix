@@ -12,9 +12,9 @@ export const meta = () => {
     })
 }
 
-const GetWorkQuery = gql`
+const HomepageDataQuery = gql`
     {
-        entries(section: "work", orderBy: "lft DESC") {
+        workEntries: entries(section: "work", orderBy: "lft DESC") {
             id
             title
             ... on work_work_Entry {
@@ -27,12 +27,8 @@ const GetWorkQuery = gql`
                 }
             }
         }
-    }
-`
 
-const GetHomepageQuery = gql`
-    {
-        entries(section: "homepage", limit: 1) {
+        homepageEntry: entries(section: "homepage", limit: 1) {
             id
             ... on homepage_homepage_Entry {
                 id
@@ -43,9 +39,8 @@ const GetHomepageQuery = gql`
 `
 
 export let loader = async () => {
-    const { entries: workEntries } = await gqlClient().request(GetWorkQuery)
-    const { entries: homepageEntry } = await gqlClient().request(
-        GetHomepageQuery
+    const { workEntries, homepageEntry } = await gqlClient().request(
+        HomepageDataQuery
     )
 
     return json({
