@@ -84,12 +84,12 @@ export default function App() {
                     id="content"
                     role="main"
                     tabIndex={-1}
-                    className="py-64 outline-none relative"
+                    className="py-64 outline-none"
                 >
                     <Outlet />
 
                     {transition.state === 'loading' ? (
-                        <div className="inset-0 absolute">
+                        <div className="inset-0 fixed z-2">
                             <div className="fixed w-64 top-1/2 left-1/2 -translate-y-1/2 -translate-x-1/2 z-2">
                                 <Loader />
                             </div>
