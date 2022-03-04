@@ -8,7 +8,7 @@ export const getMeta = ({
     description = null,
 }: MetaType): MetaType => {
     const titleSuffix =
-        'Trevor Davis | Front-End Development Technical Director @ Viget'
+        'Trevor Davis | Front-End Development Technical Director @ Dutchie'
     const combinedTitle = title ? `${title} | ${titleSuffix}` : titleSuffix
 
     return {

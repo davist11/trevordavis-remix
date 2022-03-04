@@ -8,7 +8,7 @@ import { gqlClient } from '~/helpers/graphql.server'
 
 export const meta = () => {
     return getMeta({
-        description: 'I’m a Front-End Development Technical Director at Viget.',
+        description: 'I’m a Senior Software Engineer at Dutchie.',
     })
 }
 
