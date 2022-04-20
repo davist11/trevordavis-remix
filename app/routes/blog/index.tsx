@@ -13,10 +13,9 @@ export const meta = () => {
 
 export let loader = async ({ request }: any) => {
     const url = new URL(request.url)
-    const currentPage: number = Number.parseInt(
-        url.searchParams.get('page') ?? 1
-    )
-    const offset: number = (currentPage - 1) * 10
+    const pageParam = url.searchParams.get('page')
+    const currentPage = pageParam ? Number.parseInt(pageParam) : 1
+    const offset = (currentPage - 1) * 10
 
     const { entries, total } = await useGqlClient().request(GET_ARTICLES, {
         offset,
