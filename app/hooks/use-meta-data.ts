@@ -1,12 +1,12 @@
 interface MetaType {
-    title?: string | null
-    description?: string | null
+    title?: string
+    description?: string
 }
 
-export const getMeta = ({
-    title = null,
-    description = null,
-}: MetaType): MetaType => {
+export default function useMetaData({
+    title,
+    description,
+}: MetaType): MetaType {
     const titleSuffix = 'Trevor Davis | Senior Software Engineer @ Dutchie'
     const combinedTitle = title ? `${title} | ${titleSuffix}` : titleSuffix
 

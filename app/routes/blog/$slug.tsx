@@ -1,21 +1,28 @@
 import { useLoaderData, json, ActionFunction } from 'remix'
 import type { LoaderFunction } from 'remix'
-import { getMeta } from '~/helpers/get-meta'
-import Like from '~/components/Like'
+
+import useGqlClient from '~/hooks/use-gql-client'
+import useMetaData from '~/hooks/use-meta-data'
+import useBlogSummary from '~/hooks/use-blog-summary'
+
 import { GET_ARTICLE, GET_ARTICLE_LIKES } from '~/graphql/queries'
 import { UPDATE_ARTICLE_LIKES } from '~/graphql/mutations'
-import useGqlClient from '~/hooks/use-gql-client'
+
+import Like from '~/components/Like'
 
 export const meta = ({ data }: any) => {
     if (!data) {
-        return getMeta({
+        return useMetaData({
             title: 'Blog',
             description: 'Read from my infrequently updated blog',
         })
     }
 
-    return getMeta({
-        title: ` ${data.entries[0].title} | Blog`,
+    const entry = data.entries[0]
+
+    return useMetaData({
+        title: ` ${entry.title} | Blog`,
+        description: useBlogSummary(entry.body, 160),
     })
 }
 

@@ -1,12 +1,14 @@
 import { useActionData, Form, redirect, json, useTransition } from 'remix'
-import { sendMail } from '~/helpers/send-mail.server'
-import Loader from '~/components/Loader'
-import { getMeta } from '~/helpers/get-meta'
-import CurvedArrow from '~/images/icons/CurvedArrow'
 import { AkismetClient } from 'akismet-api'
 
+import useMetaData from '~/hooks/use-meta-data'
+import { sendMail } from '~/helpers/send-mail.server'
+
+import CurvedArrow from '~/images/icons/CurvedArrow'
+import Loader from '~/components/Loader'
+
 export const meta = () => {
-    return getMeta({
+    return useMetaData({
         title: 'Contact',
         description: 'Get in touch with me!',
     })
