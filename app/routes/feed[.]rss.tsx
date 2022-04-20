@@ -1,41 +1,13 @@
 import type { LoaderFunction } from 'remix'
 import { gqlClient } from '~/helpers/graphql.server'
-import { gql } from 'graphql-request'
+import { GET_RSS_ITEMS } from '~/graphql/queries'
 
 const escapeCdata = (s: string) => {
     return s.replace(/\]\]>/g, ']]]]><![CDATA[>')
 }
 
 export const loader: LoaderFunction = async ({ request }) => {
-    const { entries } = await gqlClient().request(gql`
-        {
-            entries(section: ["blog", "work"], orderBy: "postDate DESC") {
-                id
-                title
-                sectionHandle
-                postDate @formatDateTime(format: "rss")
-                uri
-                ... on work_work_Entry {
-                    id
-                    website
-                    listingImage {
-                        url
-                    }
-                }
-                ... on blog_blog_Entry {
-                    id
-                    body
-                    typeHandle
-                }
-                ... on blog_externalArticle_Entry {
-                    id
-                    body
-                    typeHandle
-                    website
-                }
-            }
-        }
-    `)
+    const { entries } = await gqlClient().request(GET_RSS_ITEMS)
 
     const host =
         request.headers.get('X-Forwarded-Host') ?? request.headers.get('host')

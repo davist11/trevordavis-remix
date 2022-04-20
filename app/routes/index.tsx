@@ -1,10 +1,10 @@
 import { useLoaderData, json } from 'remix'
-import { gql } from 'graphql-request'
 import cx from 'classnames'
 import WorkEntry from '~/components/WorkEntry'
 import { getMeta } from '~/helpers/get-meta'
 import CurvedArrow from '~/images/icons/CurvedArrow'
 import { gqlClient } from '~/helpers/graphql.server'
+import { GET_HOMEPAGE } from '~/graphql/queries'
 
 export const meta = () => {
     return getMeta({
@@ -12,35 +12,9 @@ export const meta = () => {
     })
 }
 
-const HomepageDataQuery = gql`
-    {
-        workEntries: entries(section: "work", orderBy: "lft DESC") {
-            id
-            title
-            ... on work_work_Entry {
-                website
-                listingImage {
-                    urlLarge: url
-                        @transform(width: 1200, height: 675, immediately: true)
-                    urlSmall: url
-                        @transform(width: 680, height: 382, immediately: true)
-                }
-            }
-        }
-
-        homepageEntry: entries(section: "homepage", limit: 1) {
-            id
-            ... on homepage_homepage_Entry {
-                id
-                description
-            }
-        }
-    }
-`
-
 export let loader = async () => {
     const { workEntries, homepageEntry } = await gqlClient().request(
-        HomepageDataQuery
+        GET_HOMEPAGE
     )
 
     return json({

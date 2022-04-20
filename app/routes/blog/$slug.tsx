@@ -1,9 +1,10 @@
 import { useLoaderData, json, ActionFunction } from 'remix'
 import type { LoaderFunction } from 'remix'
-import { gql } from 'graphql-request'
 import { gqlClient } from '~/helpers/graphql.server'
 import { getMeta } from '~/helpers/get-meta'
 import Like from '~/components/Like'
+import { GET_ARTICLE, GET_ARTICLE_LIKES } from '~/graphql/queries'
+import { UPDATE_ARTICLE_LIKES } from '~/graphql/mutations'
 
 export const meta = ({ data }: any) => {
     if (!data) {
@@ -19,22 +20,9 @@ export const meta = ({ data }: any) => {
 }
 
 export const loader: LoaderFunction = async ({ request, params }) => {
-    const { entries } = await gqlClient(request).request(gql`
-        {
-            entries(section: "blog", limit: 1, slug: "${params.slug}") {
-                id
-                title
-                displayDate: postDate @formatDateTime (format: "m.d.Y")
-                attributeDate: postDate @formatDateTime (format: "Y-m-d")
-
-                ... on blog_blog_Entry {
-                    id
-                    body
-                    numberOfLikes
-                }
-            }
-        }
-    `)
+    const { entries } = await gqlClient(request).request(GET_ARTICLE, {
+        slug: params.slug,
+    })
 
     return json({ entries })
 }
@@ -43,18 +31,9 @@ export const action: ActionFunction = async ({ request, params }) => {
     const isLiked = (await request.formData()).get('liked')
 
     // Get the current count in case it's changed since page load
-    const { entries } = await gqlClient(request).request(gql`
-        {
-            entries(section: "blog", limit: 1, slug: "${params.slug}") {
-                id
-
-                ... on blog_blog_Entry {
-                    id
-                    numberOfLikes
-                }
-            }
-        }
-    `)
+    const { entries } = await gqlClient(request).request(GET_ARTICLE_LIKES, {
+        slug: params.slug,
+    })
 
     const entry = entries[0]
     const prevNumberOfLikes = entry.numberOfLikes
@@ -62,20 +41,10 @@ export const action: ActionFunction = async ({ request, params }) => {
         isLiked === 'true' ? prevNumberOfLikes + 1 : prevNumberOfLikes - 1
 
     // Update the number of likes
-    const mutation = gql`
-        mutation updateLikes($id: ID, $numberOfLikes: Number) {
-            save_blog_blog_Entry(id: $id, numberOfLikes: $numberOfLikes) {
-                id
-                numberOfLikes
-            }
-        }
-    `
-    const variables = {
+    const data = await gqlClient().request(UPDATE_ARTICLE_LIKES, {
         id: entry.id,
         numberOfLikes: newNumberOfLikes,
-    }
-
-    const data = await gqlClient().request(mutation, variables)
+    })
 
     // Really don't need to read from data since we are reading this value and incrementing
     return {
