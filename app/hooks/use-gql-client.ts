@@ -1,7 +1,7 @@
 import { GraphQLClient } from 'graphql-request'
 
-// Pass through allowed query params to the requst
-const getQueryParams = (request: Request): string => {
+// Extract allowed query params and construct query string
+const getQueryString = (request: Request): string => {
     const url = new URL(request.url)
     const allowedKeys = ['x-craft-preview', 'x-craft-live-preview', 'token']
     const filteredParams = Object.entries(
@@ -17,8 +17,8 @@ const getQueryParams = (request: Request): string => {
     return `?${queryString}`
 }
 
-export const gqlClient = (request = null) => {
-    const queryString = request ? getQueryParams(request) : ''
+export default function useGqlClient(request?: Request) {
+    const queryString = request ? getQueryString(request) : ''
 
     return new GraphQLClient(`${process.env.GRAPHQL_ENDPOINT}${queryString}`, {
         headers: {

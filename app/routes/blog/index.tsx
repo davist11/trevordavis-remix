@@ -1,6 +1,6 @@
 import { useLoaderData, json } from 'remix'
 import Pagination from '~/components/Pagination'
-import { gqlClient } from '~/helpers/graphql.server'
+import useGqlClient from '~/hooks/use-gql-client'
 import { getMeta } from '~/helpers/get-meta'
 import { GET_ARTICLES } from '~/graphql/queries'
 
@@ -18,7 +18,7 @@ export let loader = async ({ request }: any) => {
     )
     const offset: number = (currentPage - 1) * 10
 
-    const { entries, total } = await gqlClient().request(GET_ARTICLES, {
+    const { entries, total } = await useGqlClient().request(GET_ARTICLES, {
         offset,
     })
 

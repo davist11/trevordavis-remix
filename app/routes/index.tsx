@@ -3,8 +3,8 @@ import cx from 'classnames'
 import WorkEntry from '~/components/WorkEntry'
 import { getMeta } from '~/helpers/get-meta'
 import CurvedArrow from '~/images/icons/CurvedArrow'
-import { gqlClient } from '~/helpers/graphql.server'
 import { GET_HOMEPAGE } from '~/graphql/queries'
+import useGqlClient from '~/hooks/use-gql-client'
 
 export const meta = () => {
     return getMeta({
@@ -13,7 +13,7 @@ export const meta = () => {
 }
 
 export let loader = async () => {
-    const { workEntries, homepageEntry } = await gqlClient().request(
+    const { workEntries, homepageEntry } = await useGqlClient().request(
         GET_HOMEPAGE
     )
 
