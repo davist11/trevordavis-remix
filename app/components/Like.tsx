@@ -1,7 +1,5 @@
 import { useEffect, useState } from 'react'
 import cx from 'classnames'
-import { gql } from 'graphql-request'
-import { gqlClient } from '~/helpers/graphql.server'
 import { useFetcher } from 'remix'
 
 import Heart from '~/images/icons/Heart'
@@ -11,28 +9,16 @@ type LikeProps = {
     likes: number
 }
 
-/*
-mutation updateLikes($id: ID, $numberOfLikes: Number) {
-  save_blog_blog_Entry(id: $id, numberOfLikes: $numberOfLikes) {
-    id
-    numberOfLikes
-  }
-}
-*/
-
 const Like = ({ storageKey, likes }: LikeProps) => {
     const [hasLiked, setHasLiked] = useState(false)
     const fetcher = useFetcher()
 
-    /*
-        TODO this is trash: https://remix.run/docs/en/v1/api/remix#usefetcher instead
-    */
     const handleLike = () => {
         setHasLiked((hasLiked) => {
             const updatedHasLiked = !hasLiked
             window.localStorage.setItem(storageKey, updatedHasLiked.toString())
 
-            // Submit to the server
+            // Submit request to the server
             fetcher.submit(
                 {
                     liked: updatedHasLiked.toString(),
@@ -46,6 +32,7 @@ const Like = ({ storageKey, likes }: LikeProps) => {
         })
     }
 
+    // Pull the value from local storage
     useEffect(() => {
         setHasLiked(window.localStorage.getItem(storageKey) === 'true')
     }, [storageKey])

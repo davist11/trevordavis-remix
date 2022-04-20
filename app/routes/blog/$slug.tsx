@@ -1,12 +1,8 @@
 import { useLoaderData, json, ActionFunction } from 'remix'
 import type { LoaderFunction } from 'remix'
-import cx from 'classnames'
-
 import { gql } from 'graphql-request'
 import { gqlClient } from '~/helpers/graphql.server'
 import { getMeta } from '~/helpers/get-meta'
-import { useState } from 'react'
-import Heart from '~/images/icons/Heart'
 import Like from '~/components/Like'
 
 export const meta = ({ data }: any) => {
