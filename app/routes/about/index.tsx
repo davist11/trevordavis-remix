@@ -1,9 +1,9 @@
 import { useLoaderData, json } from 'remix'
 import type { LoaderFunction } from 'remix'
-import { gql } from 'graphql-request'
 import { gqlClient } from '~/helpers/graphql.server'
 import cx from 'classnames'
 import { getMeta } from '~/helpers/get-meta'
+import { GET_ABOUT } from '~/graphql/queries'
 
 export const meta = () => {
     return getMeta({
@@ -13,31 +13,7 @@ export const meta = () => {
 }
 
 export const loader: LoaderFunction = async () => {
-    const { entries } = await gqlClient().request(gql`
-        {
-            entries(section: "about", limit: 1) {
-                id
-                title
-                ... on about_about_Entry {
-                    id
-                    facts {
-                        ... on facts_fact_BlockType {
-                            id
-                            fact
-                            image {
-                                url
-                                    @transform(
-                                        width: 850
-                                        height: 575
-                                        immediately: true
-                                    )
-                            }
-                        }
-                    }
-                }
-            }
-        }
-    `)
+    const { entries } = await gqlClient().request(GET_ABOUT)
 
     return json({ entries })
 }

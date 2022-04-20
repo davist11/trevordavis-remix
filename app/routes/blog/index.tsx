@@ -1,8 +1,8 @@
-import { useLoaderData, json, Link } from 'remix'
-import { gql } from 'graphql-request'
+import { useLoaderData, json } from 'remix'
 import Pagination from '~/components/Pagination'
 import { gqlClient } from '~/helpers/graphql.server'
 import { getMeta } from '~/helpers/get-meta'
+import { GET_ARTICLES } from '~/graphql/queries'
 
 export const meta = () => {
     return getMeta({
@@ -18,26 +18,9 @@ export let loader = async ({ request }: any) => {
     )
     const offset: number = (currentPage - 1) * 10
 
-    const { entries, total } = await gqlClient().request(gql`
-        {
-            entries(section: "blog", limit: 10, offset: ${offset}) {
-                title
-                slug
-                ... on blog_blog_Entry {
-                    id
-                    typeHandle
-                    body
-                }
-                ... on blog_externalArticle_Entry {
-                    id
-                    typeHandle
-                    body
-                    website
-                }
-            }
-            total: entryCount(section: "blog")
-        }
-    `)
+    const { entries, total } = await gqlClient().request(GET_ARTICLES, {
+        offset,
+    })
 
     return json({ entries, total, currentPage })
 }
@@ -73,7 +56,6 @@ export default function BlogIndex() {
                             <a href={website}>{title}</a>
                         ) : (
                             <a href={`/blog/${slug}`}>{title}</a>
-                            // <Link to={`/blog/${slug}`}>{title}</Link>
                         )}
                     </h2>
                     <div className="text -long">

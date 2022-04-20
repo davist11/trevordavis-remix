@@ -20,10 +20,6 @@ interface ErrorsType {
     general?: string
 }
 
-export const loader = () => {
-    return json({ siteKey: process.env.RECAPTCHA_SITE_KEY })
-}
-
 export async function action({ request }: any) {
     const formData = await request.formData()
     const honeypot = formData.get('important')
