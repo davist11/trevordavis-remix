@@ -1,10 +1,10 @@
 import { useLoaderData, json, ActionFunction } from 'remix'
 import type { LoaderFunction } from 'remix'
-import { gqlClient } from '~/helpers/graphql.server'
 import { getMeta } from '~/helpers/get-meta'
 import Like from '~/components/Like'
 import { GET_ARTICLE, GET_ARTICLE_LIKES } from '~/graphql/queries'
 import { UPDATE_ARTICLE_LIKES } from '~/graphql/mutations'
+import useGqlClient from '~/hooks/use-gql-client'
 
 export const meta = ({ data }: any) => {
     if (!data) {
@@ -20,7 +20,7 @@ export const meta = ({ data }: any) => {
 }
 
 export const loader: LoaderFunction = async ({ request, params }) => {
-    const { entries } = await gqlClient(request).request(GET_ARTICLE, {
+    const { entries } = await useGqlClient(request).request(GET_ARTICLE, {
         slug: params.slug,
     })
 
@@ -31,7 +31,7 @@ export const action: ActionFunction = async ({ request, params }) => {
     const isLiked = (await request.formData()).get('liked')
 
     // Get the current count in case it's changed since page load
-    const { entries } = await gqlClient(request).request(GET_ARTICLE_LIKES, {
+    const { entries } = await useGqlClient(request).request(GET_ARTICLE_LIKES, {
         slug: params.slug,
     })
 
@@ -41,7 +41,7 @@ export const action: ActionFunction = async ({ request, params }) => {
         isLiked === 'true' ? prevNumberOfLikes + 1 : prevNumberOfLikes - 1
 
     // Update the number of likes
-    const data = await gqlClient().request(UPDATE_ARTICLE_LIKES, {
+    const data = await useGqlClient().request(UPDATE_ARTICLE_LIKES, {
         id: entry.id,
         numberOfLikes: newNumberOfLikes,
     })

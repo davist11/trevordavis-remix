@@ -1,5 +1,5 @@
 import type { LoaderFunction } from 'remix'
-import { gqlClient } from '~/helpers/graphql.server'
+import useGqlClient from '~/hooks/use-gql-client'
 import { GET_RSS_ITEMS } from '~/graphql/queries'
 
 const escapeCdata = (s: string) => {
@@ -7,7 +7,7 @@ const escapeCdata = (s: string) => {
 }
 
 export const loader: LoaderFunction = async ({ request }) => {
-    const { entries } = await gqlClient().request(GET_RSS_ITEMS)
+    const { entries } = await useGqlClient().request(GET_RSS_ITEMS)
 
     const host =
         request.headers.get('X-Forwarded-Host') ?? request.headers.get('host')

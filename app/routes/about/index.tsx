@@ -1,6 +1,6 @@
 import { useLoaderData, json } from 'remix'
 import type { LoaderFunction } from 'remix'
-import { gqlClient } from '~/helpers/graphql.server'
+import useGqlClient from '~/hooks/use-gql-client'
 import cx from 'classnames'
 import { getMeta } from '~/helpers/get-meta'
 import { GET_ABOUT } from '~/graphql/queries'
@@ -13,7 +13,7 @@ export const meta = () => {
 }
 
 export const loader: LoaderFunction = async () => {
-    const { entries } = await gqlClient().request(GET_ABOUT)
+    const { entries } = await useGqlClient().request(GET_ABOUT)
 
     return json({ entries })
 }
