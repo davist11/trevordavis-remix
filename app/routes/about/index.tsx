@@ -1,12 +1,14 @@
 import { useLoaderData, json } from 'remix'
 import type { LoaderFunction } from 'remix'
-import useGqlClient from '~/hooks/use-gql-client'
 import cx from 'classnames'
-import { getMeta } from '~/helpers/get-meta'
+
+import useGqlClient from '~/hooks/use-gql-client'
+import useMetaData from '~/hooks/use-meta-data'
+
 import { GET_ABOUT } from '~/graphql/queries'
 
 export const meta = () => {
-    return getMeta({
+    return useMetaData({
         title: 'About',
         description: 'Find out a little more about me',
     })

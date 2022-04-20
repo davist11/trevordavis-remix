@@ -1,13 +1,16 @@
 import { useLoaderData, json } from 'remix'
 import cx from 'classnames'
-import WorkEntry from '~/components/WorkEntry'
-import { getMeta } from '~/helpers/get-meta'
-import CurvedArrow from '~/images/icons/CurvedArrow'
-import { GET_HOMEPAGE } from '~/graphql/queries'
+
 import useGqlClient from '~/hooks/use-gql-client'
+import useMetaData from '~/hooks/use-meta-data'
+
+import { GET_HOMEPAGE } from '~/graphql/queries'
+
+import WorkEntry from '~/components/WorkEntry'
+import CurvedArrow from '~/images/icons/CurvedArrow'
 
 export const meta = () => {
-    return getMeta({
+    return useMetaData({
         description: 'I’m a Senior Software Engineer at Dutchie.',
     })
 }

@@ -1,7 +1,7 @@
-import { getMeta } from '~/helpers/get-meta'
+import useMetaData from '~/hooks/use-meta-data'
 
 export const meta = () => {
-    return getMeta({
+    return useMetaData({
         title: 'Thanks',
         description: 'I will reply back to your message soon!',
     })
