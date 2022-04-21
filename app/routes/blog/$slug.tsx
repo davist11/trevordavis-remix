@@ -5,10 +5,9 @@ import useGqlClient from '~/hooks/use-gql-client'
 import useMetaData from '~/hooks/use-meta-data'
 import useBlogSummary from '~/hooks/use-blog-summary'
 
-import { GET_ARTICLE, GET_ARTICLE_LIKES } from '~/graphql/queries'
-import { UPDATE_ARTICLE_LIKES } from '~/graphql/mutations'
+import { GET_ARTICLE } from '~/graphql/queries'
 
-import Like from '~/components/Like'
+import Like, { handleLike } from '~/components/Like'
 
 export const meta = ({ data }: any) => {
     if (!data) {
@@ -35,28 +34,7 @@ export const loader: LoaderFunction = async ({ request, params }) => {
 }
 
 export const action: ActionFunction = async ({ request, params }) => {
-    const isLiked = (await request.formData()).get('liked')
-
-    // Get the current count in case it's changed since page load
-    const { entries } = await useGqlClient(request).request(GET_ARTICLE_LIKES, {
-        slug: params.slug,
-    })
-
-    const entry = entries[0]
-    const prevNumberOfLikes = entry.numberOfLikes
-    const newNumberOfLikes =
-        isLiked === 'true' ? prevNumberOfLikes + 1 : prevNumberOfLikes - 1
-
-    // Update the number of likes
-    const data = await useGqlClient().request(UPDATE_ARTICLE_LIKES, {
-        id: entry.id,
-        numberOfLikes: newNumberOfLikes,
-    })
-
-    // Really don't need to read from data since we are reading this value and incrementing
-    return {
-        numberOflikes: newNumberOfLikes,
-    }
+    return handleLike(request, params)
 }
 
 export default function BlogEntry() {

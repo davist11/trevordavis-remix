@@ -1,12 +1,48 @@
 import { useEffect, useState } from 'react'
 import cx from 'classnames'
-import { useFetcher } from 'remix'
+import { ActionFunction, useFetcher } from 'remix'
 
 import Heart from '~/images/icons/Heart'
+import useGqlClient from '~/hooks/use-gql-client'
+import { GET_ARTICLE_LIKES } from '~/graphql/queries'
+import { UPDATE_ARTICLE_LIKES } from '~/graphql/mutations'
+import { Params } from 'react-router'
 
 type LikeProps = {
     storageKey: string
     likes: number
+}
+
+type HandleLikeReturn = {
+    numberOflikes: number
+}
+
+export const handleLike = async (
+    request: Request,
+    params: Params
+): Promise<HandleLikeReturn> => {
+    const isLiked = (await request.formData()).get('liked')
+
+    // Get the current count in case it's changed since page load
+    const { entries } = await useGqlClient(request).request(GET_ARTICLE_LIKES, {
+        slug: params.slug,
+    })
+
+    const entry = entries[0]
+    const prevNumberOfLikes = entry.numberOfLikes
+    const newNumberOfLikes =
+        isLiked === 'true' ? prevNumberOfLikes + 1 : prevNumberOfLikes - 1
+
+    // Update the number of likes
+    await useGqlClient().request(UPDATE_ARTICLE_LIKES, {
+        id: entry.id,
+        numberOfLikes: newNumberOfLikes,
+    })
+
+    // Really don't need to read from data since we are reading this value and incrementing
+    return {
+        numberOflikes: newNumberOfLikes,
+    }
 }
 
 const Like = ({ storageKey, likes }: LikeProps) => {
@@ -14,19 +50,20 @@ const Like = ({ storageKey, likes }: LikeProps) => {
     const fetcher = useFetcher()
 
     const handleLike = () => {
+        // Submit request to the server
+        fetcher.submit(
+            {
+                liked: (!hasLiked).toString(),
+            },
+            {
+                method: 'post',
+            }
+        )
+
+        // Update state and local storage value
         setHasLiked((hasLiked) => {
             const updatedHasLiked = !hasLiked
             window.localStorage.setItem(storageKey, updatedHasLiked.toString())
-
-            // Submit request to the server
-            fetcher.submit(
-                {
-                    liked: updatedHasLiked.toString(),
-                },
-                {
-                    method: 'post',
-                }
-            )
 
             return updatedHasLiked
         })
