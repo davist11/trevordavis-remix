@@ -2,7 +2,7 @@ import { useActionData, Form, redirect, json, useTransition } from 'remix'
 import { AkismetClient } from 'akismet-api'
 
 import useMetaData from '~/hooks/use-meta-data'
-import { sendMail } from '~/helpers/send-mail.server'
+import useSendMail from '~/hooks/use-send-mail'
 
 import CurvedArrow from '~/images/icons/CurvedArrow'
 import Loader from '~/components/Loader'
@@ -93,15 +93,15 @@ export async function action({ request }: any) {
         <p>${message}</p>`
 
     const msg = {
-        to: process.env.MAIL_TO,
-        from: process.env.MAIL_FROM,
+        to: process.env.MAIL_TO ?? '',
+        from: process.env.MAIL_FROM ?? '',
         replyTo: email,
         subject: 'New Contact Form Submission',
         text: textMessage,
         html: htmlMessage,
     }
 
-    await sendMail(msg)
+    await useSendMail(msg)
 
     return redirect('/contact/thanks')
 }
