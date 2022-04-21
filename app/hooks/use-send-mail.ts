@@ -8,8 +8,8 @@ interface MessageType {
     html: string
 }
 
-export const sendMail = async (msg: MessageType) => {
-    mail.setApiKey(process.env.SENDGRID_KEY)
+export default async function useSendMail(msg: MessageType) {
+    mail.setApiKey(process.env.SENDGRID_KEY ?? '')
 
     try {
         await mail.send(msg)
@@ -17,7 +17,7 @@ export const sendMail = async (msg: MessageType) => {
             statusCode: 200,
             body: JSON.stringify({ message: 'Email sent.' }),
         }
-    } catch (error) {
+    } catch (error: any) {
         console.log(error.response.body.errors)
         return {
             statusCode: 500,
