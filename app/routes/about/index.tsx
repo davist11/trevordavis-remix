@@ -7,6 +7,18 @@ import useMetaData from '~/hooks/use-meta-data'
 
 import { GET_ABOUT } from '~/graphql/queries'
 
+import Image from '~/components/Image'
+
+type FactImage = {
+    url: string
+}
+
+type FactType = {
+    id: number
+    fact: string
+    image: FactImage[]
+}
+
 export const meta = () => {
     return useMetaData({
         title: 'About',
@@ -20,23 +32,14 @@ export const loader: LoaderFunction = async () => {
     return json({ entries })
 }
 
-interface FactImage {
-    url: string
-}
-
-interface FactType {
-    id: number
-    fact: string
-    image: FactImage[]
-}
-
 export default function AboutIndex() {
     const { entries } = useLoaderData()
     const entry = entries[0]
     const facts: FactType[] = entry.facts
 
-    const randomImageUrl = (images: FactImage[]) =>
-        images[Math.floor(Math.random() * images.length)].url
+    const randomImageUrl = (images: FactImage[]) => {
+        return images[Math.floor(Math.random() * images.length)].url
+    }
 
     return (
         <div className="max-w-1064 mx-auto px-20">
@@ -64,7 +67,12 @@ export default function AboutIndex() {
 
                         {item.image.length ? (
                             <div className="sm:w-2/3">
-                                <img src={randomImageUrl(item.image)} alt="" />
+                                <div className="aspect-about">
+                                    <Image
+                                        src={randomImageUrl(item.image)}
+                                        options={{ w: 850, h: 575 }}
+                                    />
+                                </div>
                             </div>
                         ) : null}
                     </div>

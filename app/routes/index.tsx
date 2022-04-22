@@ -60,27 +60,37 @@ export default function Index() {
 
             <div className="max-w-1280 mx-auto space-y-40 flex flex-wrap justify-between px-20 lg:px-40">
                 {workEntries.map(
-                    ({ id, title, listingImage, website }, index) => (
-                        <div
-                            className={cx('text-center', {
-                                'w-full': index === 0,
-                                'w-full md:w-1/2-grid': index > 0,
-                            })}
-                            key={id}
-                        >
-                            <WorkEntry
-                                id={id}
-                                title={title}
-                                image={
-                                    index === 0 && listingImage
-                                        ? listingImage[0]?.urlLarge
-                                        : listingImage[0]?.urlSmall
-                                }
-                                website={website}
-                                lazy={index > 2}
-                            />
-                        </div>
-                    )
+                    ({ id, title, listingImage, website }, index) => {
+                        const options =
+                            index === 0
+                                ? {
+                                      w: 1200,
+                                      h: 675,
+                                  }
+                                : {
+                                      w: 680,
+                                      h: 382,
+                                  }
+
+                        return (
+                            <div
+                                className={cx('text-center', {
+                                    'w-full': index === 0,
+                                    'w-full md:w-1/2-grid': index > 0,
+                                })}
+                                key={id}
+                            >
+                                <WorkEntry
+                                    id={id}
+                                    title={title}
+                                    image={listingImage[0].url}
+                                    options={options}
+                                    website={website}
+                                    lazy={index > 2}
+                                />
+                            </div>
+                        )
+                    }
                 )}
             </div>
         </>

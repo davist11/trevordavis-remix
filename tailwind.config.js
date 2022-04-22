@@ -31,9 +31,8 @@ module.exports = {
             xld: { max: em(1279) },
         },
         aspectRatio: {
-            square: [1, 1],
-            '3/2': [3, 2],
-            '16/9': [16, 9],
+            about: '850 / 575',
+            homepage: '1200 / 675',
         },
         breakInside: {
             avoid: 'avoid',
