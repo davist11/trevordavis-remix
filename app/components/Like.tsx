@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import cx from 'classnames'
-import { ActionFunction, useFetcher } from 'remix'
+import { useFetcher } from 'remix'
 
 import Heart from '~/images/icons/Heart'
 import useGqlClient from '~/hooks/use-gql-client'
@@ -93,7 +93,11 @@ const Like = ({ storageKey, likes }: LikeProps) => {
                 {hasLiked ? 'Un-like' : 'Like'} this post
             </span>
 
-            <span className="ml-16">
+            <span
+                className={cx('ml-16 duration-400 transition-default', {
+                    'opacity-25': fetcher.state === 'submitting',
+                })}
+            >
                 {numberOfLikes} {numberOfLikes === 1 ? 'Like' : 'Likes'}
             </span>
         </button>
