@@ -28,7 +28,15 @@ const Image = ({ src, options, loading = 'lazy' }: ImageProps) => {
         ...options,
     })
 
-    return <img src={imgixSrc} alt="" loading={loading} />
+    return (
+        <img
+            src={imgixSrc}
+            alt=""
+            loading={loading}
+            width={options?.w}
+            height={options?.h}
+        />
+    )
 }
 
 export default Image
