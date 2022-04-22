@@ -1,16 +1,22 @@
+import Image from './Image'
+
 const WorkEntry = ({
     id,
     title,
     image,
     website,
     lazy,
+    options,
 }: {
     id: Number
     title: string
     image: string
     website?: string
     lazy: boolean
+    options?: Record<string, string | number>
 }) => {
+    const loading = lazy ? 'lazy' : 'eager'
+
     return (
         <>
             {website ? (
@@ -33,22 +39,26 @@ const WorkEntry = ({
 
                         <div className="absolute bg-blue-600 inset-0 z-1 opacity-0 duration-200 transition-opacity group-hover:opacity-50"></div>
 
-                        <img
-                            src={image}
-                            alt=""
-                            loading={lazy ? 'lazy' : 'eager'}
-                        />
+                        <div className="aspect-homepage">
+                            <Image
+                                src={image}
+                                loading={loading}
+                                options={options}
+                            />
+                        </div>
                     </div>
                 </a>
             ) : (
                 <div className="overflow-hidden rounded-md bg-blue-600">
                     <div className="p-8 text-sm">{title}</div>
                     <div className="relative">
-                        <img
-                            src={image}
-                            alt=""
-                            loading={lazy ? 'lazy' : 'eager'}
-                        />
+                        <div className="aspect-homepage">
+                            <Image
+                                src={image}
+                                loading={loading}
+                                options={options}
+                            />
+                        </div>
                     </div>
                 </div>
             )}
