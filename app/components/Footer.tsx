@@ -28,7 +28,11 @@ const footerNav: FooterNavItem[] = [
 
 const Footer = () => {
     return (
-        <footer id="footer" role="contentinfo" className="bg-blue-700 p-16">
+        <footer
+            id="footer"
+            role="contentinfo"
+            className="bg-blue-700 p-16 space-y-32"
+        >
             <dl className="flex items-center justify-center space-x-16 -mx-16">
                 <dt className="sr-only">Connect with me on:</dt>
                 {footerNav.map(({ label, url, icon: Icon }) => (
@@ -43,6 +47,16 @@ const Footer = () => {
                     </dd>
                 ))}
             </dl>
+
+            <div className="text text-center">
+                <p className="text-sm">
+                    Run into a problem?{' '}
+                    <a href="https://github.com/davist11/trevordavis-remix/issues/new">
+                        Submit an issue
+                    </a>{' '}
+                    to let me know. Thanks!
+                </p>
+            </div>
         </footer>
     )
 }
