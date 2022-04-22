@@ -31,7 +31,7 @@ const Footer = () => {
         <footer
             id="footer"
             role="contentinfo"
-            className="bg-blue-700 p-16 space-y-32"
+            className="bg-blue-700 py-32 px-16 space-y-32"
         >
             <dl className="flex items-center justify-center space-x-16 -mx-16">
                 <dt className="sr-only">Connect with me on:</dt>
