@@ -12,10 +12,10 @@ const Image = ({ src, options, loading = 'lazy', alt = '' }: ImageProps) => {
     const imgixSrc = useImgix(src, options)
 
     return (
-        imgixSrc && (
-            <div className="relative">
-                <Loader />
+        <div className="relative">
+            <Loader />
 
+            {imgixSrc && (
                 <img
                     src={imgixSrc}
                     alt=""
@@ -24,8 +24,8 @@ const Image = ({ src, options, loading = 'lazy', alt = '' }: ImageProps) => {
                     width={options?.w}
                     height={options?.h}
                 />
-            </div>
-        )
+            )}
+        </div>
     )
 }
 
