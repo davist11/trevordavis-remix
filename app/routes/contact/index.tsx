@@ -1,4 +1,5 @@
-import { useActionData, Form, redirect, json, useTransition } from 'remix'
+import { useActionData, Form, useTransition } from '@remix-run/react'
+import { json, redirect } from '@remix-run/node'
 import { AkismetClient } from 'akismet-api'
 
 import useMetaData from '~/hooks/use-meta-data'

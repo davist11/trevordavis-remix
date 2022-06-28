@@ -14,7 +14,7 @@ type LikeProps = {
 }
 
 type HandleLikeReturn = {
-    numberOflikes: number
+    numberOfLikes: number
 }
 
 export const handleLike = async (
@@ -41,7 +41,7 @@ export const handleLike = async (
 
     // Really don't need to read from data since we are reading this value and incrementing
     return {
-        numberOflikes: newNumberOfLikes,
+        numberOfLikes: newNumberOfLikes,
     }
 }
 
@@ -75,14 +75,10 @@ const Like = ({ storageKey, likes }: LikeProps) => {
     }, [storageKey])
 
     const numberOfLikes =
-        fetcher.type === 'done' ? fetcher.data.numberOflikes : likes
+        fetcher.type === 'done' ? fetcher.data.numberOfLikes : likes
 
     return (
-        <button
-            onClick={handleLike}
-            type="submit"
-            className="flex items-center"
-        >
+        <button onClick={handleLike} className="flex items-center">
             <Heart
                 className={cx('rect-icon-md duration-400 transition-default', {
                     'text-blue-700': !hasLiked,

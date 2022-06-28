@@ -5,7 +5,7 @@ import Github from '~/images/icons/Github'
 interface FooterNavItem {
     label: string
     url: string
-    icon: any //update to component
+    icon: any // TODO update to component
 }
 
 const footerNav: FooterNavItem[] = [

@@ -1,5 +1,6 @@
-import { useLoaderData, json } from 'remix'
-import type { LoaderFunction } from 'remix'
+import { useLoaderData } from '@remix-run/react'
+import { json } from '@remix-run/node'
+import type { LoaderFunction } from '@remix-run/node'
 import cx from 'classnames'
 
 import useGqlClient from '~/hooks/use-gql-client'
