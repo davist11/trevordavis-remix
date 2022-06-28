@@ -1,4 +1,5 @@
 import ImgixClient from '@imgix/js-core'
+import Loader from './Loader'
 
 const defaultOptions = {
     auto: 'format',
@@ -29,13 +30,18 @@ const Image = ({ src, options, loading = 'lazy' }: ImageProps) => {
     })
 
     return (
-        <img
-            src={imgixSrc}
-            alt=""
-            loading={loading}
-            width={options?.w}
-            height={options?.h}
-        />
+        <div className="relative">
+            <Loader />
+
+            <img
+                src={imgixSrc}
+                alt=""
+                className="relative z-1"
+                loading={loading}
+                width={options?.w}
+                height={options?.h}
+            />
+        </div>
     )
 }
 
