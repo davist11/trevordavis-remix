@@ -26,6 +26,8 @@ const Dogs = ({ facts }: DogProps) => {
                 <div className="absolute left-0 bottom-0 h-2 w-120 bg-blue-600"></div>
             </div>
 
+            <p className="mb-48">Newman is a 12 year old shelty mix.</p>
+
             {filteredFact &&
                 filteredFact.image.map((image, index) => (
                     <div key={index} className="w-1/2 mb-20">
