@@ -8,6 +8,7 @@ import useMetaData from '~/hooks/use-meta-data'
 import { GET_ABOUT } from '~/graphql/queries'
 
 import Image from '~/components/Image'
+import Dogs from '~/components/Dogs'
 
 type FactImage = {
     url: string
@@ -19,26 +20,39 @@ type FactType = {
     image: FactImage[]
 }
 
-export const meta = () => {
+export const meta = ({ data }: any) => {
+    if (data?.dogs) {
+        return useMetaData({
+            title: 'Newman',
+            description: 'Helloooooo Newman',
+        })
+    }
+
     return useMetaData({
         title: 'About',
         description: 'Find out a little more about me',
     })
 }
 
-export const loader: LoaderFunction = async () => {
+export const loader: LoaderFunction = async ({ request }) => {
+    const url = new URL(request.url)
+    const dogs = url.searchParams.get('pets[dogs]')
     const { entries } = await useGqlClient().request(GET_ABOUT)
 
-    return json({ entries })
+    return json({ entries, dogs })
 }
 
 export default function AboutIndex() {
-    const { entries } = useLoaderData()
+    const { entries, dogs } = useLoaderData()
     const entry = entries[0]
     const facts: FactType[] = entry.facts
 
     const randomImageUrl = (images: FactImage[]) => {
         return images[Math.floor(Math.random() * images.length)].url
+    }
+
+    if (dogs) {
+        return <Dogs facts={facts} />
     }
 
     return (
