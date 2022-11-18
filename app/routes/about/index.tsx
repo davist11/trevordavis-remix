@@ -1,4 +1,4 @@
-import { useLoaderData, json } from 'remix'
+import { useLoaderData, json, Link } from 'remix'
 import type { LoaderFunction } from 'remix'
 import cx from 'classnames'
 
@@ -81,12 +81,24 @@ export default function AboutIndex() {
 
                         {item.image.length ? (
                             <div className="sm:w-2/3">
-                                <div className="aspect-about">
-                                    <Image
-                                        src={randomImageUrl(item.image)}
-                                        options={{ w: 850, h: 575 }}
-                                    />
-                                </div>
+                                {item.fact.includes('Newman') ? (
+                                    <Link
+                                        to="/about?pets[dogs]=all"
+                                        className="block aspect-about"
+                                    >
+                                        <Image
+                                            src={randomImageUrl(item.image)}
+                                            options={{ w: 850, h: 575 }}
+                                        />
+                                    </Link>
+                                ) : (
+                                    <div className="aspect-about">
+                                        <Image
+                                            src={randomImageUrl(item.image)}
+                                            options={{ w: 850, h: 575 }}
+                                        />
+                                    </div>
+                                )}
                             </div>
                         ) : null}
                     </div>
