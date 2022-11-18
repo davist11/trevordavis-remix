@@ -8,11 +8,12 @@ const defaultOptions = {
 
 type ImageProps = {
     src: string
+    alt?: string
     options?: Record<string, string | number>
     loading?: 'eager' | 'lazy' | undefined
 }
 
-const Image = ({ src, options, loading = 'lazy' }: ImageProps) => {
+const Image = ({ src, options, loading = 'lazy', alt = '' }: ImageProps) => {
     const imagePath = new URL(`https:${src}`).pathname.replace(
         '/uploads/images',
         ''
@@ -35,7 +36,7 @@ const Image = ({ src, options, loading = 'lazy' }: ImageProps) => {
 
             <img
                 src={imgixSrc}
-                alt=""
+                alt={alt}
                 className="relative z-1"
                 loading={loading}
                 width={options?.w}

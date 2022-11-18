@@ -89,6 +89,7 @@ export default function AboutIndex() {
                                         <Image
                                             src={randomImageUrl(item.image)}
                                             options={{ w: 850, h: 575 }}
+                                            alt="Newman"
                                         />
                                     </Link>
                                 ) : (
