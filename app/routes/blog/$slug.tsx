@@ -8,6 +8,7 @@ import useBlogSummary from '~/hooks/use-blog-summary'
 import { GET_ARTICLE } from '~/graphql/queries'
 
 import Like, { handleLike } from '~/components/Like'
+import Share from '~/components/Share'
 
 export const meta = ({ data }: any) => {
     if (!data) {
@@ -66,10 +67,14 @@ export default function BlogEntry() {
             <div className="relative mt-48 pt-48">
                 <div className="absolute left-0 top-0 h-2 w-120 bg-blue-600"></div>
 
-                <Like
-                    storageKey={`entry-${entry.id}-like`}
-                    likes={entry.numberOfLikes ?? 0}
-                />
+                <div className="flex">
+                    <Share title={entry.title} />
+
+                    <Like
+                        storageKey={`entry-${entry.id}-like`}
+                        likes={entry.numberOfLikes ?? 0}
+                    />
+                </div>
             </div>
         </div>
     )
