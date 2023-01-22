@@ -1,4 +1,6 @@
 import Image from '~/components/Image'
+import Divider from './Divider'
+import PageHeading from './PageHeading'
 
 type FactImage = {
     url: string
@@ -21,9 +23,9 @@ const Dogs = ({ facts }: DogProps) => {
     return (
         <div className="max-w-1064 mx-auto px-20">
             <div className="relative pb-48 mb-48">
-                <h1 className="text-jb text-purple">Newman</h1>
+                <PageHeading>Newman</PageHeading>
 
-                <div className="absolute left-0 bottom-0 h-2 w-120 bg-blue-600"></div>
+                <Divider />
             </div>
 
             <p className="mb-48">Newman is a 12 year old shelty mix.</p>

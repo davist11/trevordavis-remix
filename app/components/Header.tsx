@@ -9,24 +9,20 @@ import Close from '~/images/icons/Close'
 interface NavItem {
     title: string
     url: string
-    color: string
 }
 
 const nav: NavItem[] = [
     {
         title: 'About',
         url: 'about',
-        color: 'bg-purple',
     },
     {
         title: 'Blog',
         url: 'blog',
-        color: 'bg-teal',
     },
     {
         title: 'Contact',
         url: 'contact',
-        color: 'bg-yellow',
     },
 ]
 
@@ -44,11 +40,11 @@ const Header = () => {
             className="bg-blue-500"
             data-controller="header"
         >
-            <div className="max-w-1280 mx-auto flex justify-between items-center py-16 px-16">
+            <div className="max-w-1280 mx-auto flex justify-between items-center px-16 mdd:py-16">
                 <Link to="/" className="flex items-center">
                     <span className="sr-only">Trevor Davis</span>
 
-                    <span className="block mr-16 text-pink-400">
+                    <span className="block mr-16 text-blue-200">
                         <LogoIcon className="rect-logo-icon" />
                     </span>
 
@@ -72,14 +68,13 @@ const Header = () => {
                         }
                     )}
                 >
-                    <ul className="text-shadow-white font-normal mdd:font-hairline mdd:space-y-16 mdd:text-center mdd:text-xl md:flex md:items-center md:space-x-16">
-                        {nav.map(({ title, url, color }) => (
+                    <ul className=" font-medium mdd:space-y-16 mdd:text-center mdd:text-xl md:flex md:items-center md:space-x-16">
+                        {nav.map(({ title, url }) => (
                             <li key={title}>
                                 <Link
                                     to={url}
                                     className={cx(
-                                        'block text-blue-500 rounded-full px-16 py-8 mdd:px-32 mdd:py-16',
-                                        color
+                                        'block px-16 py-24 border-y-4 border-transparent rounded-b-default duration-200 transition-default hover:text-white-default hover:border-b-blue-200'
                                     )}
                                     onClick={handleToggleNav}
                                 >

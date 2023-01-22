@@ -40,16 +40,20 @@ export default function Index() {
 
     return (
         <>
+            <h1 className="sr-only">
+                Trevor Davis, Senior Software Engineer @ Dutchie
+            </h1>
+
             <div className="max-w-1440 mx-auto mb-32 px-20 lg:px-40 lg:text-center">
                 <div
-                    className="text text-lg md:text-xl"
+                    className="text text-lg md:text-xl font-serif"
                     dangerouslySetInnerHTML={{
                         __html: homepageEntry.description,
                     }}
                 ></div>
 
                 <div className="flex lg:justify-center">
-                    <h2 className="mt-48 text-lg md:text-xl lg:relative lg:px-48">
+                    <h2 className="mt-48 text-md md:text-lg lg:relative lg:px-48">
                         Check out a selection of my work
                         <div className="absolute left-full top-16 -ml-40 lgd:hidden">
                             <CurvedArrow className="rect-icon-lg transform -scale-x-100 rotate-200" />

@@ -1,12 +1,14 @@
 import { Link } from 'remix'
+import Divider from './Divider'
+import PageHeading from './PageHeading'
 
 const CatchError = ({ errorText }: { errorText: string }) => {
     return (
         <div className="max-w-768 mx-auto px-20 min-h-2/3-screen">
             <div className="relative pb-48 mb-48">
-                <h1 className="text-jb text-purple">{errorText}</h1>
+                <PageHeading>{errorText}</PageHeading>
 
-                <div className="absolute left-0 bottom-0 h-2 w-120 bg-blue-600"></div>
+                <Divider />
             </div>
 
             <div className="text">

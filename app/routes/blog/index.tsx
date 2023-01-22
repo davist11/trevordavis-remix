@@ -7,6 +7,7 @@ import { GET_ARTICLES } from '~/graphql/queries'
 
 import Pagination from '~/components/Pagination'
 import BlogSummary from '~/components/BlogSummary'
+import Divider from '~/components/Divider'
 
 export const meta = () => {
     return useMetaData({
@@ -41,22 +42,23 @@ export default function BlogIndex() {
     const blogEntries: Blog[] = response.entries
 
     return (
-        <div className="max-w-1064 mx-auto px-20">
+        <div className="max-w-768 mx-auto px-20">
             <h1 className="sr-only">Blog</h1>
 
             {blogEntries.map(({ slug, title, website, typeHandle, body }) => (
                 <div className="relative mb-48 pb-48" key={slug}>
-                    <h2 className="text-lg text-teal mb-16">
-                        {website ? (
-                            <a href={website}>{title}</a>
-                        ) : (
-                            <a href={`/blog/${slug}`}>{title}</a>
-                        )}
+                    <h2 className="text-lg text-white-default font-serif mb-16">
+                        <a
+                            href={website ? website : `/blog/${slug}`}
+                            className="block decoration-2 decoration-blue-200 transition-all duration-200 underline-offset-2 underline hover:decoration-transparent"
+                        >
+                            {title}
+                        </a>
                     </h2>
 
                     <BlogSummary typeHandle={typeHandle} body={body} />
 
-                    <div className="absolute left-0 bottom-0 h-2 w-120 bg-blue-600"></div>
+                    <Divider />
                 </div>
             ))}
 

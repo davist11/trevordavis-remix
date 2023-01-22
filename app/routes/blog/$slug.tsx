@@ -9,6 +9,8 @@ import { GET_ARTICLE } from '~/graphql/queries'
 
 import Like, { handleLike } from '~/components/Like'
 import Share from '~/components/Share'
+import PageHeading from '~/components/PageHeading'
+import Divider from '~/components/Divider'
 
 export const meta = ({ data }: any) => {
     if (!data) {
@@ -43,20 +45,18 @@ export default function BlogEntry() {
     const entry = entries[0]
 
     return (
-        <div className="max-w-1064 mx-auto px-20">
+        <div className="max-w-768 mx-auto px-20">
             <div className="relative pb-48 mb-48">
                 <time
                     dateTime={entry.attributeDate}
-                    className="block mb-16 text-sm"
+                    className="block mb-24 text-sm tracking-wider text-right"
                 >
                     {entry.displayDate}
                 </time>
 
-                <h1 className="text-xl md:text-jb leading-snug text-teal">
-                    {entry.title}
-                </h1>
+                <PageHeading>{entry.title}</PageHeading>
 
-                <div className="absolute left-0 bottom-0 h-2 w-120 bg-blue-600"></div>
+                <Divider />
             </div>
 
             <div

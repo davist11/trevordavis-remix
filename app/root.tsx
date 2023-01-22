@@ -31,7 +31,7 @@ export function links() {
         },
         {
             rel: 'stylesheet',
-            href: 'https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@100;400&Open+Sans:wght@300&display=swap',
+            href: 'https://fonts.googleapis.com/css2?family=Noto+Serif:wght@400&family=Quicksand:wght@300;500&family=JetBrains+Mono:wght@100&display=swap',
         },
         {
             rel: 'apple-touch-icon',

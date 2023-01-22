@@ -16,7 +16,7 @@ export const SkipLink = () => {
     return (
         <a
             href="#content"
-            className="sr-only focus:sr-undo-absolute bg-orange text-blue-400"
+            className="sr-only focus:sr-undo-absolute bg-blue-100 text-blue-400"
         >
             <div className="p-8">Skip to Content</div>
         </a>

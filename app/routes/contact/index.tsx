@@ -6,6 +6,8 @@ import useSendMail from '~/hooks/use-send-mail'
 
 import CurvedArrow from '~/images/icons/CurvedArrow'
 import Loader from '~/components/Loader'
+import PageHeading from '~/components/PageHeading'
+import Divider from '~/components/Divider'
 
 export const meta = () => {
     return useMetaData({
@@ -116,9 +118,9 @@ export default function ContactIndex() {
     return (
         <div className="max-w-768 mx-auto px-20">
             <div className="relative pb-48 mb-48">
-                <h1 className="text-jb text-yellow">Contact</h1>
+                <PageHeading>Contact</PageHeading>
 
-                <div className="absolute left-0 bottom-0 h-2 w-120 bg-blue-600"></div>
+                <Divider />
             </div>
 
             <Form method="post">
@@ -132,7 +134,7 @@ export default function ContactIndex() {
                     </li>
 
                     <li className="field">
-                        <label htmlFor="name" className="relative">
+                        <label htmlFor="name" className="font-medium relative">
                             Name
                             <span className="sr-only">Required</span>
                             {curvedArrowIcon}
@@ -152,7 +154,7 @@ export default function ContactIndex() {
                     </li>
 
                     <li className="field">
-                        <label htmlFor="email" className="relative">
+                        <label htmlFor="email" className="font-medium relative">
                             Email
                             <span className="sr-only">Required</span>
                             {curvedArrowIcon}
@@ -172,7 +174,10 @@ export default function ContactIndex() {
                     </li>
 
                     <li className="field">
-                        <label htmlFor="message" className="relative">
+                        <label
+                            htmlFor="message"
+                            className="font-medium relative"
+                        >
                             Message
                             <span className="sr-only">Required</span>
                             {curvedArrowIcon}
@@ -198,7 +203,7 @@ export default function ContactIndex() {
 
                         <button
                             type="submit"
-                            className="bg-yellow text-blue-400 px-32 py-16 rounded-full transition-default duration-200 hover:bg-orange"
+                            className="bg-blue-200 border-2 border-blue-200 text-blue-400 leading-none py-10 px-20 rounded-md antialiased font-medium transition-all duration-200 hover:bg-blue-400 hover:text-blue-100 hover:rounded-xl"
                             data-form-target="button"
                         >
                             Send
