@@ -9,6 +9,8 @@ import { GET_ABOUT } from '~/graphql/queries'
 
 import Image from '~/components/Image'
 import Dogs from '~/components/Dogs'
+import PageHeading from '~/components/PageHeading'
+import Divider from '~/components/Divider'
 
 type FactImage = {
     url: string
@@ -58,9 +60,9 @@ export default function AboutIndex() {
     return (
         <div className="max-w-1064 mx-auto px-20">
             <div className="relative pb-48 mb-48">
-                <h1 className="text-jb text-purple">{entry.title}</h1>
+                <PageHeading>{entry.title}</PageHeading>
 
-                <div className="absolute left-0 bottom-0 h-2 w-120 bg-blue-600"></div>
+                <Divider />
             </div>
 
             <div className="space-y-48">

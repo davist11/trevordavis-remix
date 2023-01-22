@@ -42,29 +42,21 @@ module.exports = {
             transparent: 'transparent',
             black: '#000',
             current: 'currentColor',
-            white: '#fff',
             white: {
                 default: '#fff',
                 32: `#ffffff${a[32]}`,
             },
             blue: {
                 100: '#c8d3f5',
-                200: '#86e1fc',
-                300: '#7a88cf',
+                200: '#5C9EAD',
                 400: '#222436',
                 500: '#1e2030',
                 600: '#191a2a',
                 700: '#131421',
             },
-            indigo: '#7a88cf',
-            teal: '#4fd6be',
             pink: {
-                300: '#fca7ea',
                 400: '#ff98a4',
             },
-            purple: '#c099ff',
-            yellow: '#ffc777',
-            orange: '#ff966c',
         },
         columnCount: {
             1: 1,
@@ -82,6 +74,7 @@ module.exports = {
             ...remPair(4),
             ...remPair(5),
             ...remPair(8),
+            ...remPair(10),
             ...remPair(12),
             ...remPair(16),
             ...remPair(20),
@@ -149,6 +142,7 @@ module.exports = {
             default: rem(4),
             md: rem(8),
             lg: rem(16),
+            xl: rem(24),
             full: '9999px',
         },
         borderWidth: {
@@ -160,12 +154,6 @@ module.exports = {
         },
         boxShadow: (theme) => ({
             none: 'none',
-            link: `0 ${rem(-2)} 0 0 ${theme('colors.blue.100')},0 ${rem(
-                2
-            )} 0 0 ${theme('colors.blue.100')}`,
-            'link-hover': `0 ${rem(-2)} 0 0 ${theme('colors.orange')}, 0 ${rem(
-                2
-            )} 0 0 ${theme('colors.orange')}`,
         }),
         container: {},
         cursor: {
@@ -203,8 +191,9 @@ module.exports = {
                 '"Courier New"',
                 'monospace',
             ],
+            serif: ['"Noto serif"', '"Georgia"', '"Times New Roman"', 'serif'],
             sans: [
-                '"Open Sans"',
+                '"Quicksand"',
                 '"Helvetica Neue"',
                 'Helvetica',
                 'sans-serif',
@@ -214,8 +203,8 @@ module.exports = {
             jb: rem(40),
             xl: rem(32),
             lg: rem(24),
-            md: rem(16),
-            sm: rem(14),
+            md: rem(18),
+            sm: rem(16),
             xs: rem(12),
         },
         fontWeight: {
@@ -366,11 +355,22 @@ module.exports = {
         }),
         stroke: (theme) => theme('colors'),
         textColor: (theme) => theme('colors'),
-        textDecoration: (theme) => ({}),
+        textDecorationColor: (theme) => theme('colors'),
+        textDecorationThickness: {
+            default: '1px',
+            0: '0',
+            ...pxPair(2),
+            ...pxPair(4),
+            ...pxPair(8),
+        },
+        textUnderlineOffset: {
+            default: '1px',
+            0: '0',
+            ...pxPair(2),
+            ...pxPair(4),
+            ...pxPair(8),
+        },
         textOpacity: (theme) => theme('opacity'),
-        // textShadow: (theme) => ({
-        //     white: `1px 1px ${theme('colors.white.32')}`,
-        // }),
         transformOrigin: {
             center: 'center',
             top: 'top',
@@ -430,6 +430,7 @@ module.exports = {
             0: 0,
             1: 1,
             2: 2,
+            3: 3,
             'nav-overlay': '99',
             nav: '100',
             max: '9999',

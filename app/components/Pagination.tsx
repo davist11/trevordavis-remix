@@ -20,12 +20,12 @@ const Pagination = ({
     return (
         <div>
             <h2 className="sr-only">Pagination</h2>
-            <ul className="flex w-full justify-end">
+            <ul className="flex w-full justify-end font-medium">
                 {prevPage && prevPageUrl ? (
                     <li className="w-1/2 flex">
                         <Link
                             to={prevPageUrl}
-                            className="flex items-center text-teal"
+                            className="flex items-center text-white-default decoration-2 decoration-blue-200 transition-all duration-200 underline-offset-2 underline hover:decoration-transparent"
                         >
                             <CaretDown className="rect-icon transform rotate-90 mr-8" />
                             Previous
@@ -38,7 +38,7 @@ const Pagination = ({
                     <li className="w-1/2 flex justify-end">
                         <Link
                             to={nextPageUrl}
-                            className="flex items-center text-teal"
+                            className="flex items-center text-white-default decoration-2 decoration-blue-200 transition-all duration-200 underline-offset-2 underline hover:decoration-transparent"
                         >
                             Next
                             <span className="sr-only">Page</span>

@@ -39,7 +39,7 @@ const Footer = () => {
                     <dd key={label}>
                         <a
                             href={url}
-                            className="duration-200 transition-default hover:text-pink-400"
+                            className="duration-200 transition-default text-white-default hover:text-blue-200"
                         >
                             <span className="sr-only">{label}</span>
                             <Icon className="rect-icon-md" />
