@@ -7,6 +7,7 @@ export const MetaBase = () => {
                 content="width=device-width,initial-scale=1"
             />
             <meta httpEquiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+            <meta name="msapplication-TileColor" content="#1e2030" />
             <meta name="theme-color" content="#ffffff" />
         </>
     )
