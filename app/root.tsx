@@ -51,9 +51,13 @@ export function links() {
             href: '/favicon-16x16.png',
         },
         {
+            rel: 'manifest',
+            href: '/site.webmanifest',
+        },
+        {
             rel: 'mask-icon',
             href: '/safari-pinned-tab.svg',
-            color: '#60a7c7',
+            color: '#5bbad5',
         },
         {
             rel: 'alternate',
