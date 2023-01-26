@@ -44,7 +44,6 @@ export const GET_ABOUT = gql`
     }
 `
 
-// TODO update this to support
 export const GET_ARTICLES = gql`
     query GetArticles($offset: Int!) {
         entries(section: "blog", limit: 10, offset: $offset) {
@@ -54,6 +53,13 @@ export const GET_ARTICLES = gql`
                 id
                 typeHandle
                 body
+                bodyBlocks {
+                    ... on bodyBlocks_text_BlockType {
+                        id
+                        typeHandle
+                        text
+                    }
+                }
             }
             ... on blog_externalArticle_Entry {
                 id
@@ -128,6 +134,19 @@ export const GET_RSS_ITEMS = gql`
                 id
                 body
                 typeHandle
+                bodyBlocks {
+                    ... on bodyBlocks_code_BlockType {
+                        id
+                        typeHandle
+                        code
+                        lang
+                    }
+                    ... on bodyBlocks_text_BlockType {
+                        id
+                        typeHandle
+                        text
+                    }
+                }
             }
             ... on blog_externalArticle_Entry {
                 id

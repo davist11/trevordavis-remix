@@ -2,6 +2,9 @@ import type { LoaderFunction } from 'remix'
 import useGqlClient from '~/hooks/use-gql-client'
 import { GET_RSS_ITEMS } from '~/graphql/queries'
 
+import type { TextBlockType } from '~/components/blocks/TextBlock'
+import type { CodeBlockType } from '~/components/blocks/CodeBlock'
+
 const escapeCdata = (s: string) => {
     return s.replace(/\]\]>/g, ']]]]><![CDATA[>')
 }
@@ -40,6 +43,20 @@ export const loader: LoaderFunction = async ({ request }) => {
                             : `${domain}/${entry.uri}`
 
                     let body = entry?.body
+
+                    if (entry?.bodyBlocks) {
+                        body = ''
+
+                        entry.bodyBlocks.forEach(
+                            (block: TextBlockType | CodeBlockType) => {
+                                if (block.typeHandle === 'text') {
+                                    body += block.text
+                                } else if (block.typeHandle === 'code') {
+                                    body += `<pre>${block.code}</pre>`
+                                }
+                            }
+                        )
+                    }
 
                     if (entry.sectionHandle === 'work') {
                         const imageUrl = entry?.listingImage?.[0].url
