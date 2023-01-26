@@ -5,6 +5,8 @@ import useMetaData from '~/hooks/use-meta-data'
 
 import { GET_ARTICLES } from '~/graphql/queries'
 
+import type { TextBlockType } from '~/components/blocks/TextBlock'
+
 import Pagination from '~/components/Pagination'
 import BlogSummary from '~/components/BlogSummary'
 import Divider from '~/components/Divider'
@@ -35,6 +37,7 @@ interface Blog {
     typeHandle: 'externalArticle' | 'blog'
     website?: string
     body: string
+    bodyBlocks: TextBlockType[]
 }
 
 export default function BlogIndex() {
@@ -45,22 +48,32 @@ export default function BlogIndex() {
         <div className="max-w-768 mx-auto px-20">
             <h1 className="sr-only">Blog</h1>
 
-            {blogEntries.map(({ slug, title, website, typeHandle, body }) => (
-                <div className="relative mb-48 pb-48" key={slug}>
-                    <h2 className="text-lg text-white-default font-serif mb-16">
-                        <a
-                            href={website ? website : `/blog/${slug}`}
-                            className="block decoration-2 decoration-blue-200 transition-all duration-200 underline-offset-2 underline hover:decoration-transparent"
-                        >
-                            {title}
-                        </a>
-                    </h2>
+            {blogEntries.map(
+                ({ slug, title, website, typeHandle, body, bodyBlocks }) => {
+                    const bodyForSummary = bodyBlocks?.[0]?.text ?? body
 
-                    <BlogSummary typeHandle={typeHandle} body={body} />
+                    return (
+                        <div className="relative mb-48 pb-48" key={slug}>
+                            <h2 className="text-lg text-white-default font-serif mb-16">
+                                {/* TODO use the link component when no website */}
+                                <a
+                                    href={website ? website : `/blog/${slug}`}
+                                    className="block decoration-2 decoration-blue-200 transition-all duration-200 underline-offset-2 underline hover:decoration-transparent"
+                                >
+                                    {title}
+                                </a>
+                            </h2>
 
-                    <Divider />
-                </div>
-            ))}
+                            <BlogSummary
+                                typeHandle={typeHandle}
+                                body={bodyForSummary}
+                            />
+
+                            <Divider />
+                        </div>
+                    )
+                }
+            )}
 
             <Pagination
                 currentPage={response.currentPage}
