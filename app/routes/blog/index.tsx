@@ -55,7 +55,7 @@ export default function BlogIndex() {
                     return (
                         <div className="relative mb-48 pb-48" key={slug}>
                             <h2 className="text-lg text-white-default font-serif mb-16">
-                                {/* TODO use the link component when no website */}
+                                {/* TODO if script execution (ex: twitter) can ever happen on $slug when coming from here, can use Link component */}
                                 <a
                                     href={website ? website : `/blog/${slug}`}
                                     className="block decoration-2 decoration-blue-200 transition-all duration-200 underline-offset-2 underline hover:decoration-transparent"
