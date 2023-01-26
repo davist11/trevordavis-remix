@@ -229,6 +229,15 @@
         @apply text-white-default;
     }
 
+    /* Code Block */
+    .code-block pre {
+        @apply antialiased;
+        @apply bg-blue-600 !important;
+        @apply font-hairline !important;
+        @apply font-mono !important;
+        @apply p-32 !important;
+    }
+
     /* Loader */
     /* From https://loading.io/css/ */
     .lds-ellipsis {

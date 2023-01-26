@@ -11,6 +11,7 @@ import Like, { handleLike } from '~/components/Like'
 import Share from '~/components/Share'
 import PageHeading from '~/components/PageHeading'
 import Divider from '~/components/Divider'
+import BodyBlocks from '~/components/BodyBlocks'
 
 export const meta = ({ data }: any) => {
     if (!data) {
@@ -59,10 +60,14 @@ export default function BlogEntry() {
                 <Divider />
             </div>
 
-            <div
-                className="text -long"
-                dangerouslySetInnerHTML={{ __html: entry.body }}
-            ></div>
+            {entry.bodyBlocks.length ? (
+                <BodyBlocks blocks={entry.bodyBlocks} />
+            ) : (
+                <div
+                    className="text -long"
+                    dangerouslySetInnerHTML={{ __html: entry.body }}
+                ></div>
+            )}
 
             <div className="relative mt-48 pt-48">
                 <div className="absolute left-0 top-0 h-2 w-120 bg-blue-600"></div>
