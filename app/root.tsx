@@ -7,7 +7,7 @@ import {
     ScrollRestoration,
     useCatch,
     useTransition,
-} from 'remix'
+} from "@remix-run/react";
 import styles from './tailwind.css'
 import Header from './components/Header'
 import Footer from './components/Footer'

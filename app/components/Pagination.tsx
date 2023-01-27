@@ -1,4 +1,4 @@
-import { Link } from 'remix'
+import { Link } from "@remix-run/react";
 import CaretDown from '~/images/icons/CaretDown'
 
 const Pagination = ({

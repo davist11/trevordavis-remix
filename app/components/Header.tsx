@@ -1,4 +1,4 @@
-import { Link } from 'remix'
+import { Link } from "@remix-run/react";
 import { useState } from 'react'
 import cx from 'classnames'
 import LogoText from '~/images/icons/LogoText'
