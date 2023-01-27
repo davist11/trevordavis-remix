@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import cx from 'classnames'
-import { useFetcher } from 'remix'
+import { useFetcher } from "@remix-run/react";
 
 import Heart from '~/images/icons/Heart'
 import useGqlClient from '~/hooks/use-gql-client'

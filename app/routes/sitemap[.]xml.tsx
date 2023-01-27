@@ -1,4 +1,4 @@
-import type { LoaderFunction } from 'remix'
+import { type LoaderFunction } from "@remix-run/node";
 import useGqlClient from '~/hooks/use-gql-client'
 import { GET_RSS_ITEMS } from '~/graphql/queries'
 

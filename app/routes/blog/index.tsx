@@ -1,4 +1,5 @@
-import { useLoaderData, json } from 'remix'
+import { json } from '@remix-run/node'
+import { useLoaderData } from '@remix-run/react'
 
 import useGqlClient from '~/hooks/use-gql-client'
 import useMetaData from '~/hooks/use-meta-data'
