@@ -1,4 +1,4 @@
-import { type LoaderFunction } from "@remix-run/node";
+import type { LoaderFunction } from '@remix-run/node'
 import useGqlClient from '~/hooks/use-gql-client'
 import { GET_RSS_ITEMS } from '~/graphql/queries'
 
@@ -6,7 +6,7 @@ import type { TextBlockType } from '~/components/blocks/TextBlock'
 import type { CodeBlockType } from '~/components/blocks/CodeBlock'
 
 const escapeCdata = (s: string) => {
-    return s.replace(/\]\]>/g, ']]]]><![CDATA[>');
+    return s.replace(/\]\]>/g, ']]]]><![CDATA[>')
 }
 
 export const loader: LoaderFunction = async ({ request }) => {
