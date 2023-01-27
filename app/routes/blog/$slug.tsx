@@ -1,6 +1,7 @@
 import { json } from '@remix-run/node'
 import { useLoaderData } from '@remix-run/react'
 import type { ActionFunction, LoaderFunction } from '@remix-run/router'
+import InnerHTML from 'dangerously-set-html-content'
 
 import useGqlClient from '~/hooks/use-gql-client'
 import useMetaData from '~/hooks/use-meta-data'
@@ -64,10 +65,7 @@ export default function BlogEntry() {
             {entry.bodyBlocks.length ? (
                 <BodyBlocks blocks={entry.bodyBlocks} />
             ) : (
-                <div
-                    className="text -long"
-                    dangerouslySetInnerHTML={{ __html: entry.body }}
-                ></div>
+                <InnerHTML html={entry.body} className="text -long" />
             )}
 
             <div className="relative mt-48 pt-48">

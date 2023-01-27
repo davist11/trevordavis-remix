@@ -1,5 +1,5 @@
 import { json } from '@remix-run/node'
-import { useLoaderData } from '@remix-run/react'
+import { Link, useLoaderData } from '@remix-run/react'
 
 import useGqlClient from '~/hooks/use-gql-client'
 import useMetaData from '~/hooks/use-meta-data'
@@ -52,17 +52,24 @@ export default function BlogIndex() {
             {blogEntries.map(
                 ({ slug, title, website, typeHandle, body, bodyBlocks }) => {
                     const bodyForSummary = bodyBlocks?.[0]?.text ?? body
+                    const linkClasses =
+                        'block decoration-2 decoration-blue-200 transition-all duration-200 underline-offset-2 underline hover:decoration-transparent'
 
                     return (
                         <div className="relative mb-48 pb-48" key={slug}>
                             <h2 className="text-lg text-white-default font-serif mb-16">
-                                {/* TODO if script execution (ex: twitter) can ever happen on $slug when coming from here, can use Link component */}
-                                <a
-                                    href={website ? website : `/blog/${slug}`}
-                                    className="block decoration-2 decoration-blue-200 transition-all duration-200 underline-offset-2 underline hover:decoration-transparent"
-                                >
-                                    {title}
-                                </a>
+                                {website ? (
+                                    <a href={website} className={linkClasses}>
+                                        {title}
+                                    </a>
+                                ) : (
+                                    <Link
+                                        to={`/blog/${slug}`}
+                                        className={linkClasses}
+                                    >
+                                        {title}
+                                    </Link>
+                                )}
                             </h2>
 
                             <BlogSummary

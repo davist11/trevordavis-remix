@@ -1,3 +1,5 @@
+import InnerHTML from 'dangerously-set-html-content'
+
 export type TextBlockType = {
     id: string
     typeHandle: 'text'
@@ -9,12 +11,7 @@ type TextBlockProps = {
 }
 
 const TextBlock = ({ block }: TextBlockProps) => {
-    return (
-        <div
-            className="text -long"
-            dangerouslySetInnerHTML={{ __html: block.text }}
-        ></div>
-    )
+    return <InnerHTML html={block.text} className="text -long" />
 }
 
 export default TextBlock
