@@ -1,5 +1,5 @@
-import { json, redirect } from "@remix-run/node";
-import { Form, useActionData, useTransition } from "@remix-run/react";
+import { json, redirect } from '@remix-run/node'
+import { Form, useActionData, useTransition } from '@remix-run/react'
 import { AkismetClient } from 'akismet-api'
 
 import useMetaData from '~/hooks/use-meta-data'
@@ -197,7 +197,7 @@ export default function ContactIndex() {
 
                     <li className="flex justify-end">
                         {transition.state === 'submitting' ? (
-                            <div className="relative w-64 mr-32">
+                            <div className="relative -top-10 w-64 mr-32">
                                 <Loader />
                             </div>
                         ) : null}
