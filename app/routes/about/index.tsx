@@ -9,12 +9,12 @@ import useMetaData from '~/hooks/use-meta-data'
 import { GET_ABOUT } from '~/graphql/queries'
 
 import Image from '~/components/Image'
-import Dogs from '~/components/Dogs'
 import PageHeading from '~/components/PageHeading'
 import Divider from '~/components/Divider'
 
 type FactImage = {
     url: string
+    focalPoint: number[]
 }
 
 type FactType = {
@@ -24,13 +24,6 @@ type FactType = {
 }
 
 export const meta = ({ data }: any) => {
-    if (data?.dogs) {
-        return useMetaData({
-            title: 'Newman',
-            description: 'Helloooooo Newman',
-        })
-    }
-
     return useMetaData({
         title: 'About',
         description: 'Find out a little more about me',
@@ -38,24 +31,37 @@ export const meta = ({ data }: any) => {
 }
 
 export const loader: LoaderFunction = async ({ request }) => {
-    const url = new URL(request.url)
-    const dogs = url.searchParams.get('pets[dogs]')
     const { entries } = await useGqlClient().request(GET_ABOUT)
 
-    return json({ entries, dogs })
+    return json({ entries })
+}
+
+const AboutImage = ({ image }: { image: FactImage }) => {
+    return (
+        <div className="sm:w-2/3">
+            <div className="aspect-about">
+                <Image
+                    src={image.url}
+                    options={{
+                        w: 850,
+                        h: 575,
+                        crop: 'focalpoint',
+                        'fp-x': image.focalPoint[0],
+                        'fp-y': image.focalPoint[1],
+                    }}
+                />
+            </div>
+        </div>
+    )
 }
 
 export default function AboutIndex() {
-    const { entries, dogs } = useLoaderData()
+    const { entries } = useLoaderData()
     const entry = entries[0]
     const facts: FactType[] = entry.facts
 
-    const randomImageUrl = (images: FactImage[]) => {
-        return images[Math.floor(Math.random() * images.length)].url
-    }
-
-    if (dogs) {
-        return <Dogs facts={facts} />
+    const randomImage = (images: FactImage[]) => {
+        return images[Math.floor(Math.random() * images.length)]
     }
 
     return (
@@ -83,27 +89,7 @@ export default function AboutIndex() {
                         ></div>
 
                         {item.image.length ? (
-                            <div className="sm:w-2/3">
-                                {item.fact.includes('Newman') ? (
-                                    <Link
-                                        to="/about?pets[dogs]=all"
-                                        className="block aspect-about"
-                                    >
-                                        <Image
-                                            src={randomImageUrl(item.image)}
-                                            options={{ w: 850, h: 575 }}
-                                            alt="Newman"
-                                        />
-                                    </Link>
-                                ) : (
-                                    <div className="aspect-about">
-                                        <Image
-                                            src={randomImageUrl(item.image)}
-                                            options={{ w: 850, h: 575 }}
-                                        />
-                                    </div>
-                                )}
-                            </div>
+                            <AboutImage image={randomImage(item.image)} />
                         ) : null}
                     </div>
                 ))}
