@@ -41,6 +41,9 @@ interface Blog {
     bodyBlocks: TextBlockType[]
 }
 
+export const linkClasses =
+    'block decoration-2 decoration-blue-200 transition-all duration-200 underline-offset-2 underline hover:decoration-transparent'
+
 export default function BlogIndex() {
     const response = useLoaderData()
     const blogEntries: Blog[] = response.entries
@@ -52,8 +55,6 @@ export default function BlogIndex() {
             {blogEntries.map(
                 ({ slug, title, website, typeHandle, body, bodyBlocks }) => {
                     const bodyForSummary = bodyBlocks?.[0]?.text ?? body
-                    const linkClasses =
-                        'block decoration-2 decoration-blue-200 transition-all duration-200 underline-offset-2 underline hover:decoration-transparent'
 
                     return (
                         <div className="relative mb-48 pb-48" key={slug}>

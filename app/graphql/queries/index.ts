@@ -40,6 +40,24 @@ export const GET_ABOUT = gql`
                         }
                     }
                 }
+                experience {
+                    ... on experience_experience_BlockType {
+                        id
+                        company
+                        companyUrl
+                        companyStartDate: startDate
+                            @formatDateTime(format: "m.Y")
+                        jobTitles {
+                            endDate @formatDateTime(format: "m.Y")
+                            jobTitle
+                            startDate @formatDateTime(format: "m.Y")
+                        }
+                        description
+                    }
+                }
+                capabilities {
+                    capability
+                }
             }
         }
     }

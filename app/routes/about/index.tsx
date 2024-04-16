@@ -12,6 +12,8 @@ import Image from '~/components/Image'
 import PageHeading from '~/components/PageHeading'
 import Divider from '~/components/Divider'
 
+import { linkClasses } from '~/routes/blog'
+
 type FactImage = {
     url: string
     focalPoint: number[]
@@ -21,6 +23,24 @@ type FactType = {
     id: number
     fact: string
     image: FactImage[]
+}
+
+type Experience = {
+    id: number
+    company: string
+    companyUrl: string
+    companyStartDate: string
+    endDate: string
+    description: string
+    jobTitles: {
+        jobTitle: string
+        startDate: string
+        endDate: string
+    }[]
+}
+
+type Capability = {
+    capability: string
 }
 
 export const meta = ({ data }: any) => {
@@ -38,19 +58,17 @@ export const loader: LoaderFunction = async ({ request }) => {
 
 const AboutImage = ({ image }: { image: FactImage }) => {
     return (
-        <div className="sm:w-2/3">
-            <div className="aspect-about">
-                <Image
-                    src={image.url}
-                    options={{
-                        w: 850,
-                        h: 575,
-                        crop: 'focalpoint',
-                        'fp-x': image.focalPoint[0],
-                        'fp-y': image.focalPoint[1],
-                    }}
-                />
-            </div>
+        <div className="aspect-about mb-10">
+            <Image
+                src={image.url}
+                options={{
+                    w: 850,
+                    h: 575,
+                    crop: 'focalpoint',
+                    'fp-x': image.focalPoint[0],
+                    'fp-y': image.focalPoint[1],
+                }}
+            />
         </div>
     )
 }
@@ -59,6 +77,8 @@ export default function AboutIndex() {
     const { entries } = useLoaderData()
     const entry = entries[0]
     const facts: FactType[] = entry.facts
+    const experience: Experience[] = entry.experience
+    const capabilities: Capability[] = entry.capabilities
 
     const randomImage = (images: FactImage[]) => {
         return images[Math.floor(Math.random() * images.length)]
@@ -67,32 +87,139 @@ export default function AboutIndex() {
     return (
         <div className="max-w-1064 mx-auto px-20">
             <div className="relative pb-48 mb-48">
-                <PageHeading>{entry.title}</PageHeading>
+                <PageHeading>Let’s Get Personal 👋</PageHeading>
 
                 <Divider />
             </div>
 
             <div className="space-y-48">
-                {facts.map((item, index: number) => (
-                    <div
-                        key={item.id}
-                        className={cx('sm:flex sm:items-center', {
-                            'sm:flex-row-reverse': index % 2 === 0,
-                        })}
-                    >
-                        <div
-                            className={cx('smd:mb-16 sm:w-1/3 text', {
-                                'sm:pl-20': index % 2 === 0,
-                                'sm:pr-20': index % 2 !== 0,
-                            })}
-                            dangerouslySetInnerHTML={{ __html: item.fact }}
-                        ></div>
+                <div>
+                    <div className="flex flex-wrap gap-40 mb-80">
+                        {facts.map(({ id, image, fact }) => (
+                            <div key={id} className="sm:w-1/2-grid">
+                                {image.length ? (
+                                    <AboutImage image={randomImage(image)} />
+                                ) : null}
 
-                        {item.image.length ? (
-                            <AboutImage image={randomImage(item.image)} />
-                        ) : null}
+                                <div
+                                    className="text"
+                                    dangerouslySetInnerHTML={{
+                                        __html: fact,
+                                    }}
+                                ></div>
+                            </div>
+                        ))}
                     </div>
-                ))}
+
+                    <div className="relative pb-48 mb-48">
+                        <h2 className="text-lg leading-snug font-serif text-white-default antialiased md:text-xl">
+                            My Software Enginering Journey 👨‍💻
+                        </h2>
+
+                        <Divider />
+                    </div>
+
+                    <div className="mb-80">
+                        {experience.map(
+                            (
+                                {
+                                    id,
+                                    company,
+                                    companyUrl,
+                                    companyStartDate,
+                                    description,
+                                    jobTitles,
+                                },
+                                index
+                            ) => (
+                                <div
+                                    key={id}
+                                    className="relative pl-40 sm:pl-140 pb-48 group"
+                                >
+                                    <div
+                                        className={cx(
+                                            'sm:absolute sm:top-0 sm:left-0 sm:w-80 sm:text-right smd:-ml-20 smd:mb-10 text-sm uppercase font-bold leading-none antialiased',
+                                            {
+                                                'smd:pt-2 sm:mt-2': index === 0,
+                                            }
+                                        )}
+                                    >
+                                        {index === 0
+                                            ? 'Present'
+                                            : companyStartDate}
+                                    </div>
+                                    <h3 className="text-md leading-none font-serif text-white-default antialiased md:text-lg mb-16">
+                                        {companyUrl ? (
+                                            <a
+                                                href={companyUrl}
+                                                className={linkClasses}
+                                            >
+                                                {company}
+                                            </a>
+                                        ) : (
+                                            <>{company}</>
+                                        )}
+                                    </h3>
+                                    {jobTitles.map(
+                                        ({ startDate, jobTitle, endDate }) => (
+                                            <div key={startDate}>
+                                                <p>
+                                                    <strong className="text-white-default">
+                                                        {jobTitle}
+                                                    </strong>
+                                                    ,{' '}
+                                                    <span className="text-sm">
+                                                        {startDate} &mdash;{' '}
+                                                        {endDate ?? 'Present'}
+                                                    </span>
+                                                </p>
+                                            </div>
+                                        )
+                                    )}
+                                    <div
+                                        className="text mt-16"
+                                        dangerouslySetInnerHTML={{
+                                            __html: description,
+                                        }}
+                                    ></div>
+
+                                    <div className="absolute h-full w-8 left-0 sm:left-100 top-0 -translate-x-1/2 bg-blue-600"></div>
+
+                                    <div
+                                        className={cx(
+                                            'absolute left-0 sm:left-100 top-0 -translate-x-1/2 rounded-full',
+                                            {
+                                                'bg-blue-600 border-blue-200 border-4 h-20 w-20':
+                                                    index === 0,
+                                                'bg-blue-100 h-16 w-16':
+                                                    index > 0,
+                                            }
+                                        )}
+                                    ></div>
+                                </div>
+                            )
+                        )}
+                    </div>
+
+                    <div className="relative pb-48 mb-48">
+                        <h2 className="text-lg leading-snug font-serif text-white-default antialiased md:text-xl">
+                            (Some of) My Capabilities 💪
+                        </h2>
+
+                        <Divider />
+                    </div>
+
+                    <ul className="flex flex-wrap gap-20">
+                        {capabilities.map(({ capability }) => (
+                            <li
+                                key={capability}
+                                className="bg-blue-200 text-blue-600 p-20 rounded-full font-bold antialiased leading-none"
+                            >
+                                {capability}
+                            </li>
+                        ))}
+                    </ul>
+                </div>
             </div>
         </div>
     )
