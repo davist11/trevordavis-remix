@@ -1,6 +1,7 @@
 import Twitter from '~/images/icons/Twitter'
 import Instagram from '~/images/icons/Instagram'
 import Github from '~/images/icons/Github'
+import Doodle from '~/images/icons/Doodle'
 
 interface FooterNavItem {
     label: string
@@ -31,9 +32,9 @@ const Footer = () => {
         <footer
             id="footer"
             role="contentinfo"
-            className="bg-blue-700 py-32 px-16 space-y-32"
+            className="bg-blue-700 py-32 px-16 relative"
         >
-            <dl className="flex items-center justify-center space-x-16 -mx-16">
+            <dl className="flex items-center justify-center space-x-16 -mx-16 mb-32">
                 <dt className="sr-only">Connect with me on:</dt>
                 {footerNav.map(({ label, url, icon: Icon }) => (
                     <dd key={label}>
@@ -49,7 +50,7 @@ const Footer = () => {
             </dl>
 
             <div className="text text-center">
-                <p className="text-sm">
+                <p className="text-xs sm:text-sm">
                     Run into a problem?{' '}
                     <a href="https://github.com/davist11/trevordavis-remix/issues/new">
                         Submit an issue
@@ -57,6 +58,8 @@ const Footer = () => {
                     to let me know. Thanks!
                 </p>
             </div>
+
+            <Doodle className="rect-doodle-sm smd:mt-32 smd:mx-auto sm:rect-doodle sm:absolute sm:bottom-0 sm:left-full sm:-translate-x-48 sm:-rotate-45 sm:scale-50 sm:transition-all sm:duration-200 sm:hover:-translate-x-full sm:hover:rotate-0 sm:hover:scale-100" />
         </footer>
     )
 }

@@ -206,7 +206,8 @@ module.exports = {
             lg: rem(24),
             md: rem(18),
             sm: rem(16),
-            xs: rem(12),
+            xs: rem(14),
+            ty: rem(12),
         },
         fontWeight: {
             hairline: '100',
@@ -322,6 +323,8 @@ module.exports = {
             'icon-md': [36, 36],
             'icon-lg': [48, 48],
             60: [60, 60],
+            doodle: [150, 201],
+            'doodle-sm': [75, 100],
             'logo-sm': [160, 24],
             logo: [193.5, 28.5],
             'logo-lg': [258, 38],
@@ -340,6 +343,7 @@ module.exports = {
         scale: {
             '-100': '-1',
             0: '0',
+            50: '0.5',
             90: '0.9',
             100: '1',
             110: '1.1',

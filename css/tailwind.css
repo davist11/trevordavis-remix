@@ -190,7 +190,7 @@
         @apply absolute;
         @apply font-serif;
         @apply text-white-default;
-        @apply text-xs;
+        @apply text-ty;
 
         content: '▶';
         left: -20px;
