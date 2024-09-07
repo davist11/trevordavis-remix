@@ -1,24 +1,18 @@
-import Twitter from '~/images/icons/Twitter'
-import Instagram from '~/images/icons/Instagram'
 import Github from '~/images/icons/Github'
+import Linkedin from '~/images/icons/Linkedin'
 import Doodle from '~/images/icons/Doodle'
 
 interface FooterNavItem {
     label: string
     url: string
-    icon: any //update to component
+    icon: any
 }
 
 const footerNav: FooterNavItem[] = [
     {
-        label: 'Instagram',
-        url: 'https://www.instagram.com/trevor_davis/',
-        icon: Instagram,
-    },
-    {
-        label: 'Twitter',
-        url: 'https://twitter.com/trevor_davis',
-        icon: Twitter,
+        label: 'Linkedin',
+        url: 'https://www.linkedin.com/in/trevordavis11/',
+        icon: Linkedin,
     },
     {
         label: 'GitHub',
