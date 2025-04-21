@@ -1,5 +1,5 @@
-import { json } from "@remix-run/node";
-import { useLoaderData } from "@remix-run/react";
+import { json } from '@remix-run/node'
+import { useLoaderData } from '@remix-run/react'
 import cx from 'classnames'
 
 import useGqlClient from '~/hooks/use-gql-client'
@@ -55,7 +55,7 @@ export default function Index() {
 
                 <div className="flex lg:justify-center">
                     <h2 className="mt-48 text-md md:text-lg lg:relative lg:px-48">
-                        Check out a selection of my work
+                        A selection of sites I’ve built
                         <div className="absolute left-full top-16 -ml-40 lgd:hidden">
                             <CurvedArrow className="rect-icon-lg transform -scale-x-100 rotate-200" />
                         </div>
