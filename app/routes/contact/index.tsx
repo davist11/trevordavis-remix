@@ -1,6 +1,12 @@
 import { json, redirect } from '@remix-run/node'
-import { Form, useActionData, useTransition } from '@remix-run/react'
+import {
+    Form,
+    useActionData,
+    useTransition,
+    useLoaderData,
+} from '@remix-run/react'
 import { AkismetClient } from 'akismet-api'
+import { useEffect, useState } from 'react'
 
 import useMetaData from '~/hooks/use-meta-data'
 import useSendMail from '~/hooks/use-send-mail'
@@ -9,11 +15,18 @@ import CurvedArrow from '~/images/icons/CurvedArrow'
 import Loader from '~/components/Loader'
 import PageHeading from '~/components/PageHeading'
 import Divider from '~/components/Divider'
+import Turnstile from '~/components/Turnstile'
 
 export const meta = () => {
     return useMetaData({
         title: 'Contact',
         description: 'Get in touch with me!',
+    })
+}
+
+export const loader = () => {
+    return json({
+        turnstileSiteKey: process.env.TURNSTILE_SITE_KEY,
     })
 }
 
@@ -23,6 +36,7 @@ interface ErrorsType {
     email?: string
     message?: string
     general?: string
+    turnstile?: string
 }
 
 export async function action({ request }: any) {
@@ -31,6 +45,7 @@ export async function action({ request }: any) {
     const name = formData.get('name')
     const email = formData.get('email')
     const message = formData.get('message')
+    const cfToken = formData.get('cf-turnstile-response')
     const errors: ErrorsType = {}
 
     if (honeypot) {
@@ -47,6 +62,31 @@ export async function action({ request }: any) {
 
     if (!message) {
         errors.message = 'Message is required'
+    }
+
+    if (!cfToken) {
+        errors.turnstile = 'Please complete the security check'
+    } else {
+        try {
+            const formData = new URLSearchParams()
+            formData.append('secret', process.env.TURNSTILE_SECRET_KEY ?? '')
+            formData.append('response', cfToken as string)
+
+            const result = await fetch(
+                'https://challenges.cloudflare.com/turnstile/v0/siteverify',
+                {
+                    body: formData,
+                    method: 'POST',
+                }
+            )
+
+            const outcome = await result.json()
+            if (!outcome.success) {
+                errors.turnstile = 'Security check failed. Please try again.'
+            }
+        } catch (error) {
+            errors.turnstile = 'Security check failed. Please try again.'
+        }
     }
 
     const key = process.env.AKISMET_KEY
@@ -112,6 +152,8 @@ export async function action({ request }: any) {
 export default function ContactIndex() {
     const errors = useActionData()
     const transition = useTransition()
+    const { turnstileSiteKey } = useLoaderData<typeof loader>()
+    console.log({ turnstileSiteKey })
     const curvedArrowIcon = (
         <CurvedArrow className="rect-icon absolute transform rotate-100 -left-8" />
     )
@@ -191,6 +233,17 @@ export default function ContactIndex() {
                             ></textarea>
                             {errors?.message ? (
                                 <div>{errors.message}</div>
+                            ) : null}
+                        </div>
+                    </li>
+
+                    <li className="field">
+                        <div className="ml-16">
+                            <Turnstile siteKey={turnstileSiteKey ?? ''} />
+                            {errors?.turnstile ? (
+                                <div className="text-red-500 mt-2">
+                                    {errors.turnstile}
+                                </div>
                             ) : null}
                         </div>
                     </li>

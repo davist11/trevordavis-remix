@@ -12,6 +12,7 @@
     },
     "dependencies": {
         "@imgix/js-core": "^3.8.0",
+        "@marsidev/react-turnstile": "^1.1.0",
         "@netlify/functions": "^1.4.0",
         "@remix-run/netlify": "^1.11.1",
         "@remix-run/node": "^1.11.1",

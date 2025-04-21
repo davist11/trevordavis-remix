@@ -8,4 +8,8 @@ module.exports = {
     serverBuildDirectory: 'netlify/functions/server/build',
     devServerPort: 8002,
     ignoredRouteFiles: ['.*'],
+    serverDependenciesToBundle: [
+        /^@marsidev\/react-turnstile/,
+        /^@marsidev\/react-turnstile\/.*/,
+    ],
 }
