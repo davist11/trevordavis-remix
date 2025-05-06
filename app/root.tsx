@@ -7,13 +7,25 @@ import {
     ScrollRestoration,
     useCatch,
     useTransition,
-} from "@remix-run/react";
+    useLoaderData,
+} from '@remix-run/react'
 import styles from './tailwind.css'
 import Header from './components/Header'
 import Footer from './components/Footer'
 import Loader from '~/components/Loader'
 import { MetaBase, SkipLink } from './components/Layout'
 import CatchError from './components/CatchError'
+import { useTheme } from './hooks/use-theme'
+import type { LoaderFunction } from '@remix-run/node'
+import { json } from '@remix-run/node'
+import { themeCookie } from '~/cookies.server'
+
+export const loader: LoaderFunction = async ({ request }) => {
+    const cookieHeader = request.headers.get('Cookie')
+    const theme = (await themeCookie.parse(cookieHeader)) || 'dark'
+
+    return json({ theme })
+}
 
 export function links() {
     return [
@@ -72,17 +84,24 @@ export function links() {
 export default function App() {
     const transition = useTransition()
 
+    const { theme: initialTheme } = useLoaderData()
+    const { theme, setTheme, handleThemeToggle } = useTheme(initialTheme)
+
     return (
-        <html lang="en" dir="ltr">
+        <html lang="en" dir="ltr" className={theme}>
             <head>
                 <MetaBase />
                 <Meta />
                 <Links />
             </head>
-            <body>
+            <body className="dark:bg-blue-400 dark:text-cream-100 bg-cream-100 text-blue-400 font-light font-sans text-md">
                 <SkipLink />
 
-                <Header />
+                <Header
+                    theme={theme}
+                    setTheme={setTheme}
+                    handleThemeToggle={handleThemeToggle}
+                />
 
                 <main
                     id="content"
@@ -114,20 +133,26 @@ export default function App() {
 
 // 404
 export function CatchBoundary() {
+    const { theme, setTheme, handleThemeToggle } = useTheme('dark')
+
     const caught = useCatch()
 
     return (
-        <html lang="en" dir="ltr">
+        <html lang="en" dir="ltr" className={theme}>
             <head>
                 <MetaBase />
                 <Meta />
                 <Links />
                 <title>{caught.statusText}</title>
             </head>
-            <body>
+            <body className="dark:bg-blue-400 dark:text-cream-100 bg-cream-100 text-blue-400 font-light font-sans text-md">
                 <SkipLink />
 
-                <Header />
+                <Header
+                    theme={theme}
+                    setTheme={setTheme}
+                    handleThemeToggle={handleThemeToggle}
+                />
 
                 <main
                     id="content"
@@ -147,23 +172,29 @@ export function CatchBoundary() {
 }
 
 // Uncaught exception
-export function ErrorBoundary({ error }) {
+export function ErrorBoundary({ error }: { error: Error }) {
+    const { theme, setTheme, handleThemeToggle } = useTheme('dark')
+
     console.error(error)
 
     const errorText = 'Whoops!'
 
     return (
-        <html lang="en" dir="ltr">
+        <html lang="en" dir="ltr" className={theme}>
             <head>
                 <MetaBase />
                 <Meta />
                 <Links />
                 <title>{errorText}</title>
             </head>
-            <body>
+            <body className="dark:bg-blue-400 dark:text-cream-100 bg-cream-100 text-blue-400 font-light font-sans text-md">
                 <SkipLink />
 
-                <Header />
+                <Header
+                    theme={theme}
+                    setTheme={setTheme}
+                    handleThemeToggle={handleThemeToggle}
+                />
 
                 <main
                     id="content"

@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import cx from 'classnames'
-import { useFetcher } from "@remix-run/react";
+import { useFetcher } from '@remix-run/react'
 
 import Heart from '~/images/icons/Heart'
 import useGqlClient from '~/hooks/use-gql-client'
@@ -85,7 +85,7 @@ const Like = ({ storageKey, likes }: LikeProps) => {
         >
             <Heart
                 className={cx('rect-icon-md duration-400 transition-default', {
-                    'text-blue-700': !hasLiked,
+                    'text-blue-700 hover:text-blue-100': !hasLiked,
                     'text-pink-400': hasLiked,
                 })}
             />
