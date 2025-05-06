@@ -13,6 +13,7 @@ import PageHeading from '~/components/PageHeading'
 import Divider from '~/components/Divider'
 
 import { linkClasses } from '~/routes/blog'
+import { useEffect, useState } from 'react'
 
 type FactImage = {
     url: string
@@ -22,6 +23,12 @@ type FactType = {
     id: number
     fact: string
     image: FactImage[]
+}
+
+type FormattedFactType = {
+    id: number
+    fact: string
+    image: FactImage
 }
 
 type Experience = {
@@ -75,15 +82,29 @@ export default function AboutIndex() {
     const facts: FactType[] = entry.facts
     const experience: Experience[] = entry.experience
     const capabilities: Capability[] = entry.capabilities
+    const [formattedFacts, setFormattedFacts] = useState<FormattedFactType[]>(
+        []
+    )
 
-    const randomImage = (images: FactImage[]) => {
+    useEffect(() => {
+        const factsWithRandomImage = facts.map((fact) => {
+            return {
+                ...fact,
+                image: randomImage(fact.image),
+            }
+        })
+
+        setFormattedFacts(factsWithRandomImage)
+    }, [facts])
+
+    const randomImage = (images: FactImage[]): FactImage => {
         return images[Math.floor(Math.random() * images.length)]
     }
 
     return (
         <div className="max-w-1064 mx-auto px-20">
             <div className="relative pb-48 mb-48">
-                <PageHeading>Let’s Get Personal 👋</PageHeading>
+                <PageHeading>A Bit About Me</PageHeading>
 
                 <Divider />
             </div>
@@ -91,11 +112,9 @@ export default function AboutIndex() {
             <div className="space-y-48">
                 <div>
                     <div className="flex flex-wrap gap-40 mb-80">
-                        {facts.map(({ id, image, fact }) => (
+                        {formattedFacts.map(({ id, image, fact }) => (
                             <div key={id} className="sm:w-1/2-grid">
-                                {image.length ? (
-                                    <AboutImage image={randomImage(image)} />
-                                ) : null}
+                                {image ? <AboutImage image={image} /> : null}
 
                                 <div
                                     className="text"
@@ -108,8 +127,8 @@ export default function AboutIndex() {
                     </div>
 
                     <div className="relative pb-48 mb-48">
-                        <h2 className="text-lg leading-snug font-serif text-white-default antialiased md:text-xl">
-                            My Software Enginering Journey 👨‍💻
+                        <h2 className="text-lg leading-snug font-serif antialiased md:text-xl">
+                            My Software Enginering Journey
                         </h2>
 
                         <Divider />
@@ -144,7 +163,7 @@ export default function AboutIndex() {
                                             ? 'Present'
                                             : companyStartDate}
                                     </div>
-                                    <h3 className="text-md leading-none font-serif text-white-default antialiased md:text-lg mb-16">
+                                    <h3 className="text-md leading-none font-serif  antialiased md:text-lg mb-16">
                                         {companyUrl ? (
                                             <a
                                                 href={companyUrl}
@@ -160,7 +179,7 @@ export default function AboutIndex() {
                                         ({ startDate, jobTitle, endDate }) => (
                                             <div key={startDate}>
                                                 <p>
-                                                    <strong className="text-white-default">
+                                                    <strong className="dark:text-blue-100">
                                                         {jobTitle}
                                                     </strong>
                                                     ,{' '}
@@ -179,15 +198,24 @@ export default function AboutIndex() {
                                         }}
                                     ></div>
 
-                                    <div className="absolute h-full w-8 left-0 sm:left-100 top-0 -translate-x-1/2 bg-blue-600"></div>
+                                    <div
+                                        className={cx(
+                                            'absolute h-full w-8 left-0 sm:left-100 top-0 -translate-x-1/2 bg-blue-600',
+                                            {
+                                                'rounded-b-full':
+                                                    index ===
+                                                    experience.length - 1,
+                                            }
+                                        )}
+                                    ></div>
 
                                     <div
                                         className={cx(
-                                            'absolute left-0 sm:left-100 top-0 -translate-x-1/2 rounded-full',
+                                            'absolute left-0 sm:left-100 -translate-x-1/2 rounded-full',
                                             {
-                                                'bg-blue-600 border-blue-200 border-4 h-20 w-20':
+                                                'bg-blue-600 border-blue-200 border-4 h-20 w-20 -top-px':
                                                     index === 0,
-                                                'bg-blue-100 h-16 w-16':
+                                                'dark:bg-blue-100 bg-blue-200 h-16 w-16 top-0':
                                                     index > 0,
                                             }
                                         )}
@@ -198,8 +226,8 @@ export default function AboutIndex() {
                     </div>
 
                     <div className="relative pb-48 mb-48">
-                        <h2 className="text-lg leading-snug font-serif text-white-default antialiased md:text-xl">
-                            (Some of) My Capabilities 💪
+                        <h2 className="text-lg leading-snug font-serif antialiased md:text-xl">
+                            (Some of) My Capabilities
                         </h2>
 
                         <Divider />
@@ -209,7 +237,7 @@ export default function AboutIndex() {
                         {capabilities.map(({ capability }) => (
                             <li
                                 key={capability}
-                                className="bg-blue-200 text-blue-600 p-20 rounded-full font-bold antialiased leading-none"
+                                className="bg-blue-200 dark:text-blue-600 text-cream-100 p-20 rounded-full font-bold antialiased leading-none"
                             >
                                 {capability}
                             </li>

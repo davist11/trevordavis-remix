@@ -1,4 +1,4 @@
-import { Link } from "@remix-run/react";
+import { Link } from '@remix-run/react'
 import CaretDown from '~/images/icons/CaretDown'
 
 const Pagination = ({
@@ -25,7 +25,7 @@ const Pagination = ({
                     <li className="w-1/2 flex">
                         <Link
                             to={prevPageUrl}
-                            className="flex items-center text-white-default decoration-2 decoration-blue-200 transition-all duration-200 underline-offset-2 underline hover:decoration-transparent"
+                            className="flex items-center decoration-2 decoration-blue-200 transition-all duration-200 underline-offset-2 underline hover:decoration-transparent dark:hover:text-blue-100"
                         >
                             <CaretDown className="rect-icon transform rotate-90 mr-8" />
                             Previous
@@ -38,7 +38,7 @@ const Pagination = ({
                     <li className="w-1/2 flex justify-end">
                         <Link
                             to={nextPageUrl}
-                            className="flex items-center text-white-default decoration-2 decoration-blue-200 transition-all duration-200 underline-offset-2 underline hover:decoration-transparent"
+                            className="flex items-center decoration-2 decoration-blue-200 transition-all duration-200 underline-offset-2 underline hover:decoration-transparent dark:hover:text-blue-100"
                         >
                             Next
                             <span className="sr-only">Page</span>
