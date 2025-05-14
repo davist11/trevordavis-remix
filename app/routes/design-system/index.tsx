@@ -20,7 +20,7 @@ export default function DesignSystemIndex() {
                     01.19.2023
                 </time>
 
-                <h1 className="text-xl md:text-jb leading-snug font-serif text-white-default antialiased">
+                <h1 className="text-xl md:text-jb leading-snug font-serif  antialiased">
                     Here is the Design System for this really great site
                 </h1>
 

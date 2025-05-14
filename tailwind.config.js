@@ -9,6 +9,7 @@ const a = require('@viget/tailwindcss-plugins/utilities/alpha')
 
 module.exports = {
     content: ['./app/**/*.{ts,tsx}'],
+    darkMode: 'selector',
     prefix: '',
     important: false,
     separator: ':',
@@ -46,6 +47,9 @@ module.exports = {
                 default: '#fff',
                 32: `#ffffff${a[32]}`,
             },
+            cream: {
+                100: '#f4f2eb',
+            },
             blue: {
                 100: '#c8d3f5',
                 200: '#5C9EAD',
@@ -57,6 +61,8 @@ module.exports = {
             pink: {
                 400: '#ff98a4',
             },
+            // TODO fix this
+            'black-trans': `#000000${a[5]}`,
         },
         columnCount: {
             1: 1,
@@ -155,6 +161,7 @@ module.exports = {
         },
         boxShadow: (theme) => ({
             none: 'none',
+            input: '0 0 0 4px currentColor',
         }),
         container: {},
         cursor: {
@@ -304,6 +311,7 @@ module.exports = {
         },
         opacity: {
             0: '0',
+            5: '0.05',
             25: '0.25',
             50: '0.5',
             75: '0.75',
@@ -499,7 +507,7 @@ module.exports = {
         objectPosition: ['responsive'],
         opacity: ['responsive', 'group-hover'],
         order: ['responsive'],
-        outline: ['responsive'],
+        outline: ['responsive', 'focus'],
         overflow: ['responsive'],
         padding: ['responsive'],
         placeholderColor: ['responsive'],

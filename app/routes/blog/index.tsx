@@ -42,7 +42,7 @@ interface Blog {
 }
 
 export const linkClasses =
-    'block decoration-2 decoration-blue-200 transition-all duration-200 underline-offset-2 underline hover:decoration-transparent'
+    'block decoration-2 decoration-blue-200 transition-all duration-200 underline-offset-2 underline hover:decoration-transparent dark:hover:text-blue-100'
 
 export default function BlogIndex() {
     const response = useLoaderData()
@@ -58,7 +58,7 @@ export default function BlogIndex() {
 
                     return (
                         <div className="relative mb-48 pb-48" key={slug}>
-                            <h2 className="text-lg text-white-default font-serif mb-16">
+                            <h2 className="text-lg font-serif mb-16">
                                 {website ? (
                                     <a href={website} className={linkClasses}>
                                         {title}
