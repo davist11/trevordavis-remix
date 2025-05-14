@@ -35,7 +35,7 @@ export const ThemeToggle = ({
         >
             <span className="sr-only">Enable {oppositeTheme} mode</span>
 
-            {theme === 'light' ? <Sun fill="none" /> : <Moon fill="none" />}
+            {theme === 'light' ? <Moon fill="none" /> : <Sun fill="none" />}
         </button>
     )
 }
