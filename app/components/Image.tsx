@@ -2,7 +2,7 @@ import ImgixClient from '@imgix/js-core'
 import Loader from './Loader'
 
 const defaultOptions = {
-    auto: 'format',
+    auto: 'compress,format',
     fit: 'crop',
 }
 
