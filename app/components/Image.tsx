@@ -23,7 +23,8 @@ const Image = ({ src, options, loading = 'lazy', alt = '' }: ImageProps) => {
     // secureURLToken: process.env.IMGIX_TOKEN,
     const imgixClient = new ImgixClient({
         // domain: `trevor-davis.imgix.net`,
-        domain: `images-trevor-davis.imgix.net`,
+        // domain: `images-trevor-davis.imgix.net`,
+        domain: `assets-trevor-davis.imgix.net`,
     })
 
     const imgixSrc = imgixClient.buildURL(imagePath, {
