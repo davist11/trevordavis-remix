@@ -39,8 +39,6 @@ export default function Index() {
     const homepageEntry = data.homepageEntry[0]
     const workEntries: WorkEntryType[] = data.workEntries
 
-    console.log({ workEntries })
-
     return (
         <>
             <h1 className="sr-only">

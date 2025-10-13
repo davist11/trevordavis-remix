@@ -76,8 +76,6 @@ export default function AboutIndex() {
     const experience: Experience[] = entry.experience
     const capabilities: Capability[] = entry.capabilities
 
-    console.log({ entry })
-
     const randomImage = (images: FactImage[]) => {
         return images[Math.floor(Math.random() * images.length)]
     }
@@ -95,9 +93,9 @@ export default function AboutIndex() {
                     <div className="flex flex-wrap gap-40 mb-80">
                         {facts.map(({ id, image, fact }) => (
                             <div key={id} className="sm:w-1/2-grid">
-                                {/* {image.length ? (
+                                {image.length ? (
                                     <AboutImage image={randomImage(image)} />
-                                ) : null} */}
+                                ) : null}
 
                                 <div
                                     className="text"
