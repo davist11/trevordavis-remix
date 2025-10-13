@@ -16,7 +16,6 @@ import { linkClasses } from '~/routes/blog'
 
 type FactImage = {
     url: string
-    focalPoint: number[]
 }
 
 type FactType = {
@@ -64,9 +63,6 @@ const AboutImage = ({ image }: { image: FactImage }) => {
                 options={{
                     w: 850,
                     h: 575,
-                    crop: 'focalpoint',
-                    'fp-x': image.focalPoint[0],
-                    'fp-y': image.focalPoint[1],
                 }}
             />
         </div>

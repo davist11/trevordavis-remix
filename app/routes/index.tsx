@@ -76,6 +76,10 @@ export default function Index() {
                                       w: 680,
                                       h: 382,
                                   }
+                        const imageUrl =
+                            index === 0
+                                ? listingImage[0].largeUrl
+                                : listingImage[0].smallUrl
 
                         return (
                             <div
@@ -88,7 +92,7 @@ export default function Index() {
                                 <WorkEntry
                                     id={id}
                                     title={title}
-                                    image={listingImage[0].url}
+                                    image={imageUrl}
                                     options={options}
                                     website={website}
                                     lazy={index > 2}
