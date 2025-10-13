@@ -44,7 +44,6 @@ export const GET_ABOUT = gql`
                                     height: 575
                                     immediately: true
                                 )
-                            focalPoint
                         }
                     }
                 }
