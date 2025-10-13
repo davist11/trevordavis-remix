@@ -8,7 +8,10 @@ export const GET_HOMEPAGE = gql`
             ... on work_work_Entry {
                 website
                 listingImage {
-                    url
+                    largeUrl: url
+                        @transform(width: 1200, height: 675, immediately: true)
+                    smallUrl: url
+                        @transform(width: 680, height: 382, immediately: true)
                 }
             }
         }
@@ -36,6 +39,11 @@ export const GET_ABOUT = gql`
                         fact
                         image {
                             url
+                                @transform(
+                                    width: 850
+                                    height: 575
+                                    immediately: true
+                                )
                             focalPoint
                         }
                     }
