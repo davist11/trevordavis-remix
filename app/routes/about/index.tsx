@@ -80,6 +80,8 @@ export default function AboutIndex() {
     const experience: Experience[] = entry.experience
     const capabilities: Capability[] = entry.capabilities
 
+    console.log({ entry })
+
     const randomImage = (images: FactImage[]) => {
         return images[Math.floor(Math.random() * images.length)]
     }
