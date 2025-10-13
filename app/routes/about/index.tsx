@@ -99,9 +99,9 @@ export default function AboutIndex() {
                     <div className="flex flex-wrap gap-40 mb-80">
                         {facts.map(({ id, image, fact }) => (
                             <div key={id} className="sm:w-1/2-grid">
-                                {image.length ? (
+                                {/* {image.length ? (
                                     <AboutImage image={randomImage(image)} />
-                                ) : null}
+                                ) : null} */}
 
                                 <div
                                     className="text"
