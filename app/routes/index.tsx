@@ -80,8 +80,8 @@ export default function Index() {
                                   }
                         const imageUrl =
                             index === 0
-                                ? listingImage.largeUrl
-                                : listingImage.smallUrl
+                                ? listingImage[0].largeUrl
+                                : listingImage[0].smallUrl
 
                         return (
                             <div
