@@ -4,7 +4,7 @@ type PageHeadingProps = {
 
 const PageHeading = ({ children }: PageHeadingProps) => {
     return (
-        <h1 className="text-xl leading-snug font-serif text-white-default antialiased md:text-jb">
+        <h1 className="text-xl leading-snug font-serif antialiased md:text-jb">
             {children}
         </h1>
     )

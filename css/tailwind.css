@@ -9,15 +9,6 @@
         scroll-behavior: smooth;
     }
 
-    body {
-        /* @apply antialiased; */
-        @apply bg-blue-400;
-        @apply font-light;
-        @apply font-sans;
-        @apply text-blue-100;
-        @apply text-md;
-    }
-
     @media screen and (prefers-reduced-motion: reduce), (update: slow) {
         html {
             scroll-behavior: auto;
@@ -90,8 +81,13 @@
         @apply underline;
     }
 
+    .dark .text a:hover {
+        @apply text-blue-100;
+        @apply decoration-transparent;
+    }
+
     .text a:hover {
-        @apply text-white-default;
+        @apply text-blue-200;
         @apply decoration-transparent;
     }
 
@@ -99,7 +95,14 @@
     .text b,
     .text em,
     .text i {
-        @apply text-white-default;
+        @apply text-blue-200;
+    }
+
+    .dark .text strong,
+    .dark .text b,
+    .dark .text em,
+    .dark .text i {
+        @apply text-blue-100;
     }
 
     .text h2,
@@ -120,7 +123,6 @@
         @apply font-serif;
         @apply leading-snug;
         @apply mt-48;
-        @apply text-white-default;
     }
 
     .text h2 {
@@ -171,7 +173,7 @@
         @apply font-mono;
         @apply overflow-x-auto;
         @apply p-32;
-        @apply text-white-default;
+        @apply text-cream-100;
         @apply tracking-normal;
 
         scroll-behavior: smooth;
@@ -189,10 +191,9 @@
     .text ul li::before {
         @apply absolute;
         @apply font-serif;
-        @apply text-white-default;
         @apply text-ty;
 
-        content: '▶';
+        content: '➔';
         left: -20px;
         top: 5px;
     }
@@ -211,7 +212,7 @@
     .text ol li::before {
         @apply absolute;
         @apply font-serif;
-        @apply text-white-default;
+        @apply text-cream-100;
 
         content: counter(ol) '.';
         counter-increment: ol;
@@ -226,7 +227,7 @@
         @apply px-16;
         @apply py-4;
         @apply text-lg;
-        @apply text-white-default;
+        @apply text-cream-100;
     }
 
     /* Code Block */
@@ -327,16 +328,17 @@
         @apply border-default;
         @apply border-blue-600;
         @apply p-16;
-        @apply text-blue-400;
         @apply w-full;
-        @apply transition-default;
+        @apply transition-all;
         @apply duration-200;
         @apply rounded-default;
         @apply text-blue-100;
+        @apply outline-none;
     }
 
     .forms input:focus,
     .forms textarea:focus {
+        @apply border-current;
         @apply bg-blue-600;
     }
 }

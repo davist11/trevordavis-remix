@@ -22,7 +22,7 @@ const WorkEntry = ({
             {website ? (
                 <a
                     href={website}
-                    className="block overflow-hidden rounded-md bg-blue-600 group"
+                    className="block overflow-hidden rounded-md bg-blue-600 text-cream-100 group"
                     target="_blank"
                     rel="noopener noreferrer"
                 >
@@ -32,7 +32,7 @@ const WorkEntry = ({
                     <div className="relative">
                         <div
                             className="absolute z-3 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2
-                            opacity-0 group-hover:opacity-100 bg-blue-200 border-2 border-blue-200 text-blue-400 leading-none py-10 px-20 rounded-md antialiased font-medium transition-all duration-200 hover:bg-blue-400 hover:text-blue-100 hover:rounded-xl"
+                            opacity-0 group-hover:opacity-100 bg-blue-200 border-2 border-blue-200 text-blue-400 leading-none py-10 px-20 rounded-md antialiased font-medium transition-all duration-200 hover:bg-blue-400 hover:text-cream-100 hover:rounded-xl"
                         >
                             Visit Site
                         </div>

@@ -1,6 +1,7 @@
 import Divider from '~/components/Divider'
 import PageHeading from '~/components/PageHeading'
 import useMetaData from '~/hooks/use-meta-data'
+import Doodle from '~/images/icons/Doodle'
 
 export const meta = () => {
     return useMetaData({
@@ -20,6 +21,10 @@ export default function ContactThanks() {
 
             <div className="text">
                 <p>I&rsquo;ve got your message and will be in touch soon.</p>
+            </div>
+
+            <div className="mt-48 dark:text-blue-100">
+                <Doodle className="rect-doodle" />
             </div>
         </div>
     )
