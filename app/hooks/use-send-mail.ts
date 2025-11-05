@@ -1,3 +1,4 @@
+import FormData from 'form-data'
 import Mailgun from 'mailgun.js'
 
 interface MessageType {
@@ -8,8 +9,8 @@ interface MessageType {
     html: string
 }
 
-export default async function useSendMail(msg: MessageType, formData: any) {
-    const mailgun = new Mailgun(formData)
+export default async function useSendMail(msg: MessageType) {
+    const mailgun = new Mailgun(FormData)
     const mg = mailgun.client({
         username: 'api',
         key: process.env.MAILGUN_API_KEY ?? '',

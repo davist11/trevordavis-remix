@@ -104,7 +104,7 @@ export async function action({ request }: any) {
         html: htmlMessage,
     }
 
-    await useSendMail(msg, formData)
+    await useSendMail(msg)
 
     return redirect('/contact/thanks')
 }
