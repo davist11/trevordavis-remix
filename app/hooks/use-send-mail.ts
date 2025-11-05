@@ -1,4 +1,4 @@
-import mail from '@sendgrid/mail'
+import Mailgun from 'mailgun.js'
 
 interface MessageType {
     to: string
@@ -8,17 +8,29 @@ interface MessageType {
     html: string
 }
 
-export default async function useSendMail(msg: MessageType) {
-    mail.setApiKey(process.env.SENDGRID_KEY ?? '')
+export default async function useSendMail(msg: MessageType, formData: any) {
+    const mailgun = new Mailgun(formData)
+    const mg = mailgun.client({
+        username: 'api',
+        key: process.env.MAILGUN_API_KEY ?? '',
+    })
 
     try {
-        await mail.send(msg)
+        await mg.messages.create('trevor-davis.com', {
+            to: msg.to,
+            from: msg.from,
+            subject: msg.subject,
+            text: msg.text,
+            html: msg.html,
+        })
+
         return {
             statusCode: 200,
             body: JSON.stringify({ message: 'Email sent.' }),
         }
     } catch (error: any) {
         console.log(error.response.body.errors)
+
         return {
             statusCode: 500,
             body: JSON.stringify({ message: 'Error sending email.' }),
