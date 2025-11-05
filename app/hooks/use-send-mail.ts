@@ -1,4 +1,5 @@
-import mail from '@sendgrid/mail'
+import FormData from 'form-data'
+import Mailgun from 'mailgun.js'
 
 interface MessageType {
     to: string
@@ -9,16 +10,28 @@ interface MessageType {
 }
 
 export default async function useSendMail(msg: MessageType) {
-    mail.setApiKey(process.env.SENDGRID_KEY ?? '')
+    const mailgun = new Mailgun(FormData)
+    const mg = mailgun.client({
+        username: 'api',
+        key: process.env.MAILGUN_API_KEY ?? '',
+    })
 
     try {
-        await mail.send(msg)
+        await mg.messages.create('trevor-davis.com', {
+            to: msg.to,
+            from: msg.from,
+            subject: msg.subject,
+            text: msg.text,
+            html: msg.html,
+        })
+
         return {
             statusCode: 200,
             body: JSON.stringify({ message: 'Email sent.' }),
         }
     } catch (error: any) {
         console.log(error.response.body.errors)
+
         return {
             statusCode: 500,
             body: JSON.stringify({ message: 'Error sending email.' }),
