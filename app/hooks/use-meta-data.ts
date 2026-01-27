@@ -7,7 +7,7 @@ export default function useMetaData({
     title,
     description,
 }: MetaType): MetaType {
-    const titleSuffix = 'Trevor Davis | Senior Software Engineer @ Dutchie'
+    const titleSuffix = 'Trevor Davis | Staff Software Engineer @ Clarity'
     const combinedTitle = title ? `${title} | ${titleSuffix}` : titleSuffix
 
     return {

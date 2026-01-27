@@ -12,7 +12,7 @@ import CurvedArrow from '~/images/icons/CurvedArrow'
 
 export const meta = () => {
     return useMetaData({
-        description: 'I’m a Senior Software Engineer at Dutchie.',
+        description: 'I’m a Staff Software Engineer at Clarity.',
     })
 }
 
@@ -42,7 +42,7 @@ export default function Index() {
     return (
         <>
             <h1 className="sr-only">
-                Trevor Davis, Senior Software Engineer @ Dutchie
+                Trevor Davis, Staff Software Engineer @ Clarity
             </h1>
 
             <div className="max-w-1440 mx-auto mb-32 px-20 lg:px-40 lg:text-center">
